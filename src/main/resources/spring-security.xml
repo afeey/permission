@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+	http://www.springframework.org/schema/security
+	http://www.springframework.org/schema/security/spring-security-4.0.xsd ">
+
+	<http auto-config="false" use-expressions="true">
+		<intercept-url pattern="/manage**" access="hasRole('ROLE_MANAGE')" />
+		<form-login 
+			login-page="/login" 
+			login-processing-url="/login" 
+			authentication-failure-url="/login?error"/>
+		<logout logout-url="/logout" />
+		<csrf disabled="true"/>
+		<session-management invalid-session-url="/invalid">  
+        	<concurrency-control max-sessions="1" error-if-maximum-exceeded="false" expired-url="/expired"/>  
+    	</session-management>  
+		<!--  
+		<custom-filter position="CONCURRENT_SESSION_FILTER" ref="concurrencyFilter" />
+		<session-management session-authentication-strategy-ref="sas"/>
+		-->
+	</http>
+
+	<!-- 
+	<beans:bean id="concurrencyFilter" class="org.springframework.security.web.session.ConcurrentSessionFilter">
+		<beans:constructor-arg ref="sessionRegistry" />
+	</beans:bean>
+	
+	<beans:bean id="sas" class="org.springframework.security.web.authentication.session.SessionFixationProtectionStrategy" />
+	-->
+	<!-- 
+	<beans:bean id="sessionRegistry" class="org.springframework.security.core.session.SessionRegistryImpl"/>
+	-->
+	<authentication-manager>
+		<authentication-provider>
+			 <user-service>
+                <user name="user1" password="123456" authorities="ROLE_MANAGE" />
+                <user name="user2" password="123456" authorities="ROLE_MANAGE" />  
+             </user-service> 
+		</authentication-provider>
+	</authentication-manager>
+	
+</beans:beans>
