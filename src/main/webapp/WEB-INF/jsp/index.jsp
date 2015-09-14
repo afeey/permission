@@ -7,5 +7,6 @@
 </head>
 <body>
 首页
+sessionid:${pageContext.session.id}
 </body>
 </html>

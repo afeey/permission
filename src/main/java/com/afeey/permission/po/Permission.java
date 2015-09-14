@@ -4,9 +4,6 @@ import com.afeey.permission.enums.UseStatusEnum;
 
 import java.util.Date;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-
 /**
  * 权限
  */
@@ -15,20 +12,16 @@ public class Permission {
 	/**
 	 * ID
 	 */
-	@NotNull
 	private String id;
 
 	/**
 	 * 父ID
 	 */
-	@NotNull
 	private String parentId;
 
 	/**
 	 * 名称
 	 */
-	@NotNull
-	@Min(2)
 	private String name;
 
 	/**

@@ -26,12 +26,14 @@
 	</build>
 
 	<dependencies>
+		<!-- junit4 -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
+		<!-- log4j -->
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
@@ -47,38 +49,29 @@
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>1.7.12</version>
 		</dependency>
-		<dependency>
-			<groupId>javax.el</groupId>
-			<artifactId>javax.el-api</artifactId>
-			<version>3.0.0</version>
-		</dependency>
-		<dependency>
-			<groupId>javax.servlet.jsp.jstl</groupId>
-			<artifactId>javax.servlet.jsp.jstl-api</artifactId>
-			<version>1.2.1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-validator</artifactId>
-			<version>5.2.1.Final</version>
-		</dependency>
+		<!-- srping mvc -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
 			<version>4.1.7.RELEASE</version>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-web</artifactId>
-			<version>4.0.2.RELEASE</version>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>4.1.7.RELEASE</version>
 		</dependency>
+		<!-- freemarker -->
 		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-config</artifactId>
-			<version>4.0.2.RELEASE</version>
+			<groupId>org.freemarker</groupId>
+			<artifactId>freemarker</artifactId>
+			<version>2.3.23</version>
 		</dependency>
+
+		<!-- jstl <dependency> <groupId>javax.servlet.jsp.jstl</groupId> <artifactId>javax.servlet.jsp.jstl-api</artifactId> 
+			<version>1.2.1</version> </dependency> -->
 	</dependencies>
 
+	<!-- 仓库 -->
 	<repositories>
 		<repository>
 			<id>dangjiamao</id>
@@ -92,6 +85,8 @@
 			</snapshots>
 		</repository>
 	</repositories>
+
+	<!-- 插件仓库 -->
 	<pluginRepositories>
 		<pluginRepository>
 			<id>dangjiamao</id>
