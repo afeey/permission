@@ -1,4 +1,4 @@
-package com.afeey.permission.controller;
+package com.afeey.permission.controller.view;
 
 import javax.servlet.http.HttpSession;
 
@@ -21,7 +21,9 @@ public class IndexController {
 	 * @return String
 	 */
 	@RequestMapping({ "/", "/index" })
-	public String index() {
+	public String index(Model model, HttpSession session) {
+		model.addAttribute("title", "首页");
+		model.addAttribute("seesionid", session.getId());
 		return "index";
 	}
 }

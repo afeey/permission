@@ -1,4 +1,4 @@
-package com.afeey.permission.controller;
+package com.afeey.permission.controller.view;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +15,6 @@ public class AdminController {
 	@RequestMapping("/admin")
 	public String manage() {
 
-		return "admin";
+		return "admin/index";
 	}
 }

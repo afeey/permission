@@ -1,11 +1,11 @@
-<!DOCTYPE>
+<!DOCTYPE HTML>
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Freemark首页</title>
+	<title>${title}</title>
 </head>
 <body>
-Freemark Index
-sessionid:${request.session.id}
+	<div>Index</div>
+	<div>sessionid:${seesionid}</div>
 </body>
 </html>
