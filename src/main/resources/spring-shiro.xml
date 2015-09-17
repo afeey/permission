@@ -22,6 +22,9 @@
 				/login = authc
 				/logout = logout
 				/admin** = authc
+				/admin/permission = perms["perm"]
+				/admin/role = perms["role"]
+				/admin/user = perms["user"]
 			</value>
 		</property>
 	</bean>

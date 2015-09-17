@@ -24,7 +24,7 @@ public class DefaultRealm extends AuthorizingRealm {
 
 		if (null != username && "admin".equals(username)) {
 			simpleAuthorInfo.addRole("admin");
-			simpleAuthorInfo.addStringPermission("admin:manage");
+			simpleAuthorInfo.addStringPermission("perm");
 			return simpleAuthorInfo;
 		}
 		return null;

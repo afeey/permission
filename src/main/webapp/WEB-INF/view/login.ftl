@@ -20,6 +20,7 @@
 <body>
 	<div class="container">
 	<form action="${rc.contextPath}/login" method="post">
+		<div>${error}</div>
 		<div class="form-group">
 			<label for="username">用户名</label><input type="text" class="form-control" name="username" id="username" placeholder="用户名" />
 		</div>
