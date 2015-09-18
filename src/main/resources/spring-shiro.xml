@@ -17,14 +17,16 @@
 		<property name="securityManager" ref="securityManager" />
 		<property name="loginUrl" value="/login" />
 		<property name="unauthorizedUrl" value="/unauthorized" />
+		<property name="filterChainDefinitionMap" ref="filterChainDefinitionMap" />
+	</bean>
+	
+	<bean id="filterChainDefinitionMap" class="com.afeey.permission.shiro.FilterChainDefinitionSection">
 		<property name="filterChainDefinitions">
 			<value>
 				/login = authc
 				/logout = logout
-				/admin** = authc
-				/admin/permission = perms["perm"]
-				/admin/role = perms["role"]
-				/admin/user = perms["user"]
+				/unauthorized = authc
+				/admin/** = authc
 			</value>
 		</property>
 	</bean>

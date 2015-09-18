@@ -7,20 +7,20 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- * 管理控制器
+ * 地区控制器
  * 
  * @author afeey
  *
  */
 @Controller
-public class AdminController {
+public class RegionController {
 
-	@RequestMapping({ "/admin", "/admin/index" })
-	public String manage(Model model) {
+	@RequestMapping("/region")
+	public String region(Model model) {
 		Subject subject = SecurityUtils.getSubject();
 		String username = (String) subject.getPrincipal();
 		model.addAttribute("username", username);
 
-		return "admin/index";
+		return "region/list";
 	}
 }

@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <!DOCTYPE HTML>
 <html lang="zh-CN">
 <head>
