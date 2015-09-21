@@ -15,8 +15,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
  *
  */
 @Controller
-public class SecurityController {
+public class LoginController {
 
+	/**
+	 * 登录
+	 * URL:/login
+	 * @param model
+	 * @param request
+	 * @return String
+	 */
 	@RequestMapping("/login")
 	public String login(Model model,HttpServletRequest request) {
 		
@@ -33,8 +40,4 @@ public class SecurityController {
         return "login";
 	}
 	
-	@RequestMapping("/unauthorized")
-	public String unauthorized() {
-		return "unauthorized";
-	}
 }

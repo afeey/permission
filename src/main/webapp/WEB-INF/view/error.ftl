@@ -2,10 +2,9 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>首页</title>
+	<title>error</title>
 </head>
 <body>
-	<h2>sessionid:</h2>
-	<div>${sessionid}</div>
+	<div>${ex.message}</div>
 </body>
 </html>

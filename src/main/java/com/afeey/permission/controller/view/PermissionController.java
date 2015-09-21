@@ -5,24 +5,24 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- * 地区控制器
+ * 权限控制器
  * 
  * @author afeey
  *
  */
 @Controller
 @RequestMapping("/admin")
-public class RegionController {
+public class PermissionController {
 
 	/**
-	 * 地区管理
-	 * URL:/admin/region
+	 * 权限管理
+	 * URL:/admin/permission
 	 * @param model
 	 * @return String
 	 */
-	@RequestMapping("/region")
+	@RequestMapping("/permission")
 	public String region(Model model) {
 		
-		return "admin/region/region";
+		return "admin/permission/permission";
 	}
 }

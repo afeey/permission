@@ -17,8 +17,7 @@
 	<!-- 对静态资源文件的访问 方案二 （二选一） -->
 	<!-- <mvc:resources mapping="/images/**" location="/images/" cache-period="31556926"/> 
 		<mvc:resources mapping="/js/**" location="/js/" cache-period="31556926"/> 
-		<mvc:resources mapping="/css/**" location="/css/" cache-period="31556926"/> 
-	-->
+		<mvc:resources mapping="/css/**" location="/css/" cache-period="31556926"/> -->
 
 	<!-- 注解映射支持 -->
 	<mvc:annotation-driven />
@@ -35,7 +34,7 @@
 		<property name="contentType" value="text/html;charset=UTF-8" />
 		<property name="requestContextAttribute" value="rc" />
 	</bean>
-	
+
 	<bean id="freemarkerConfig"
 		class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
 		<property name="templateLoaderPath" value="/WEB-INF/view/" />
@@ -51,9 +50,15 @@
 		</property>
 	</bean>
 
-
-	<!-- <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"> 
-		<property name="prefix" value="/WEB-INF/jsp/" /> <property name="suffix" 
-		value=".jsp" /> <property name="viewClass" value="org.springframework.web.servlet.view.JstlView" 
-		/> </bean> -->
+	<!-- 异常处理 -->
+	<bean id="exceptionResolver"
+		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="defaultErrorView" value="error" />
+		<property name="exceptionAttribute" value="ex" />
+		<property name="exceptionMappings">
+			<props>
+				<prop key="java.lang.Exception">error</prop>
+			</props>
+		</property>
+	</bean>
 </beans> 

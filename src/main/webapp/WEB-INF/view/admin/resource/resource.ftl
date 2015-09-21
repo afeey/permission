@@ -2,10 +2,9 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>首页</title>
+	<title>资源列表</title>
 </head>
 <body>
-	<h2>sessionid:</h2>
-	<div>${sessionid}</div>
+	<h3>资源列表</h3>
 </body>
 </html>

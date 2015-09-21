@@ -1,4 +1,4 @@
-package com.afeey.permission.shiro;
+package com.afeey.permission.shiro.config;
 
 import java.text.MessageFormat;
 import java.util.Set;
@@ -12,7 +12,7 @@ import org.springframework.beans.factory.FactoryBean;
 /**
  * 过滤链定义Section
  * 
- * @author Administrator
+ * @author afeey
  *
  */
 public class FilterChainDefinitionSection implements FactoryBean<Section> {
@@ -20,15 +20,12 @@ public class FilterChainDefinitionSection implements FactoryBean<Section> {
 	private static final Logger log = LoggerFactory
 			.getLogger(FilterChainDefinitionSection.class);
 
-	// @Autowired
-	// private ResourceDao resourceDao;
-
 	private String filterChainDefinitions;
 
 	/**
 	 * 默认权限字格式化符串
 	 */
-	public static final String PREMISSION_STRING = "perms[\"{0}\"]";
+	public static final String PREMISSION_STRING = "perms[{0}]";
 
 	@Override
 	public Section getObject() throws Exception {
@@ -38,7 +35,8 @@ public class FilterChainDefinitionSection implements FactoryBean<Section> {
 		ini.load(filterChainDefinitions);
 		Section section = ini.getSection(Ini.DEFAULT_SECTION_NAME);
 
-		// 加载权限
+		// 加载动态urls
+		section.put("/admin", "authc");
 		section.put("/admin/permission",
 				MessageFormat.format(PREMISSION_STRING, "permission"));
 		section.put("/admin/resource",
@@ -49,18 +47,13 @@ public class FilterChainDefinitionSection implements FactoryBean<Section> {
 				MessageFormat.format(PREMISSION_STRING, "user"));
 		section.put("/admin/region",
 				MessageFormat.format(PREMISSION_STRING, "region"));
-
+		
 		if (log.isDebugEnabled()) {
-			log.debug(MessageFormat.format(PREMISSION_STRING, "permission"));
+			log.debug("load urls:");
 
-			log.debug("get permission");
-			
-			Set<String> keySet=section.keySet();
-			for(String key : keySet){
-				//log.debug("key: {}, value: {}",section.get(key),section.);   
-			}
-			for (int i=0;i<keySet.size();i++) {
-				
+			Set<String> keySet = section.keySet();
+			for (String key : keySet) {
+				log.debug("{} = {}", key, section.get(key));
 			}
 		}
 

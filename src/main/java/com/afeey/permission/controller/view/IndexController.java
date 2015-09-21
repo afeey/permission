@@ -14,15 +14,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class IndexController {
-	
+
 	/**
 	 * 首页
-	 * 
+	 * URL:/
 	 * @return String
 	 */
-	@RequestMapping({ "/", "/index" })
+	@RequestMapping("/")
 	public String index(Model model, HttpSession session) {
-		model.addAttribute("title", "首页");
+		model.addAttribute("sessionid", session.getId());
+
 		return "index";
+	}
+	
+	/**
+	 * 未授权
+	 * @return
+	 */
+	@RequestMapping("/unauthorized")
+	public String unauthorized() {
+		return "unauthorized";
 	}
 }

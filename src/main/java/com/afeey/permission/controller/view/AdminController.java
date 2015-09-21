@@ -15,12 +15,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class AdminController {
 
-	@RequestMapping({ "/admin", "/admin/index" })
+	/**
+	 * 管理界面
+	 * URL:/admin
+	 * @param model
+	 * @return String
+	 */
+	@RequestMapping("/admin")
 	public String manage(Model model) {
 		Subject subject = SecurityUtils.getSubject();
 		String username = (String) subject.getPrincipal();
 		model.addAttribute("username", username);
 
-		return "admin/index";
+		return "admin/main";
 	}
 }

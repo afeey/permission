@@ -1,4 +1,6 @@
-package com.afeey.permission.shiro;
+package com.afeey.permission.shiro.realm;
+
+import java.util.Set;
 
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -12,6 +14,12 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * 默认授权域
+ * 
+ * @author afeey
+ *
+ */
 public class DefaultRealm extends AuthorizingRealm {
 
 	private static final Logger log = LoggerFactory
@@ -26,12 +34,16 @@ public class DefaultRealm extends AuthorizingRealm {
 
 		if (null != username && "admin".equals(username)) {
 			authzInfo = new SimpleAuthorizationInfo();
-			
+
 			authzInfo.addRole("admin");
+			authzInfo.addStringPermission("permission");
 			authzInfo.addStringPermission("resource");
-			
-			if(log.isDebugEnabled()){
-				log.debug("doGetAuthorizationInfo");
+			authzInfo.addStringPermission("role");
+			authzInfo.addStringPermission("user");
+
+			if (log.isDebugEnabled()) {
+				Set<String> perms = authzInfo.getStringPermissions();
+				log.debug("load permissions {}", perms.size());
 			}
 		}
 		return authzInfo;
@@ -47,9 +59,10 @@ public class DefaultRealm extends AuthorizingRealm {
 		if ("admin".equals(t.getUsername())) {
 			authcInfo = new SimpleAuthenticationInfo("admin", "123456",
 					this.getName());
-			
-			if(log.isDebugEnabled()){
-				log.debug("doGetAuthenticationInfo");
+
+			if (log.isDebugEnabled()) {
+				log.debug("load authentication info. username:{}",
+						t.getUsername());
 			}
 		}
 		return authcInfo;
