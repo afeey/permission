@@ -9,7 +9,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>permission Maven Webapp</name>
 	<url>http://maven.apache.org</url>
-	
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
@@ -20,7 +20,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.3.2</version>
+				<version>3.1</version>
 				<configuration>
 					<source>1.8</source>
 					<target>1.8</target>
@@ -88,34 +88,4 @@
 		</dependency>
 	</dependencies>
 
-	<!-- 仓库 -->
-	<repositories>
-		<repository>
-			<id>dangjiamao</id>
-			<name>dangjiamao Repository</name>
-			<url>http://192.168.1.254:8081/nexus/content/groups/public</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
-
-	<!-- 插件仓库 -->
-	<pluginRepositories>
-		<pluginRepository>
-			<id>dangjiamao</id>
-			<name>dangjiamao plugin</name>
-			<url>http://192.168.1.254:8081/nexus/content/groups/public</url>
-			<layout>default</layout>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-		</pluginRepository>
-	</pluginRepositories>
 </project>
