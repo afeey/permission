@@ -1,6 +1,7 @@
 package com.afeey.permission.shiro.config;
 
 import java.text.MessageFormat;
+import java.util.List;
 import java.util.Set;
 
 import org.apache.shiro.config.Ini;
@@ -8,6 +9,10 @@ import org.apache.shiro.config.Ini.Section;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.FactoryBean;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.dangjiamao.core.po.permission.Resource;
+import com.dangjiamao.core.service.permission.IResourceService;
 
 /**
  * 过滤链定义Section
@@ -21,6 +26,9 @@ public class FilterChainDefinitionSection implements FactoryBean<Section> {
 			.getLogger(FilterChainDefinitionSection.class);
 
 	private String filterChainDefinitions;
+
+	@Autowired
+	private IResourceService resourceService;
 
 	/**
 	 * 默认权限字格式化符串
@@ -36,18 +44,30 @@ public class FilterChainDefinitionSection implements FactoryBean<Section> {
 		Section section = ini.getSection(Ini.DEFAULT_SECTION_NAME);
 
 		// 加载动态urls
-		section.put("/admin", "authc");
-		section.put("/admin/permission",
-				MessageFormat.format(PREMISSION_STRING, "permission"));
-		section.put("/admin/resource",
-				MessageFormat.format(PREMISSION_STRING, "resource"));
-		section.put("/admin/role",
-				MessageFormat.format(PREMISSION_STRING, "role"));
-		section.put("/admin/user",
-				MessageFormat.format(PREMISSION_STRING, "user"));
-		section.put("/admin/region",
-				MessageFormat.format(PREMISSION_STRING, "region"));
-		
+		List<Resource> resourceList = resourceService.list(null, null, null, null);
+		for (Resource resource : resourceList) {
+			if (!resource.getPermissionList().isEmpty()) {
+				String permissions = "";
+				for (String permission : resource.getPermissionList()) {
+					permissions += "," + permission;
+				}
+				permissions = permissions.substring(1);
+				section.put(resource.getUrl(),
+						MessageFormat.format(PREMISSION_STRING, permissions));
+			}
+		}
+		// section.put("/admin", "authc");
+		// section.put("/admin/permission",
+		// MessageFormat.format(PREMISSION_STRING, "permission"));
+		// section.put("/admin/resource",
+		// MessageFormat.format(PREMISSION_STRING, "resource"));
+		// section.put("/admin/role",
+		// MessageFormat.format(PREMISSION_STRING, "role"));
+		// section.put("/admin/user",
+		// MessageFormat.format(PREMISSION_STRING, "user"));
+		// section.put("/admin/region",
+		// MessageFormat.format(PREMISSION_STRING, "region"));
+
 		if (log.isDebugEnabled()) {
 			log.debug("load urls:");
 
@@ -56,7 +76,6 @@ public class FilterChainDefinitionSection implements FactoryBean<Section> {
 				log.debug("{} = {}", key, section.get(key));
 			}
 		}
-
 		return section;
 	}
 

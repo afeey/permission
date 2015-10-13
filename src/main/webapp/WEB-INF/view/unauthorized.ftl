@@ -5,6 +5,6 @@
 	<title>未授权</title>
 </head>
 <body>
-	<div>没有权限</div>
+	<h3>没有权限</h3>
 </body>
 </html>

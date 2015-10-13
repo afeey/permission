@@ -30,6 +30,18 @@
 	</build>
 
 	<dependencies>
+		<!-- dangjiamao core -->
+		<dependency>
+		  <groupId>com.dangjiamao.core</groupId>
+		  <artifactId>core</artifactId>
+		  <version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+		  <groupId>com.dangjiamao.core</groupId>
+		  <artifactId>core</artifactId>
+		  <version>0.0.1-SNAPSHOT</version>
+		  <classifier>javadoc</classifier>
+		</dependency>
 		<!-- junit4 -->
 		<dependency>
 			<groupId>junit</groupId>
