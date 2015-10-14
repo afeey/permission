@@ -40,7 +40,7 @@ public class DefaultRealm extends AuthorizingRealm {
 		SimpleAuthorizationInfo authzInfo = null;
 		String username = (String) super.getAvailablePrincipal(principals);
 		User user = userService.getByUserName(username);
-		//加载角色和权限
+		// 加载角色和权限
 		if (null != user) {
 			authzInfo = new SimpleAuthorizationInfo();
 			List<Role> roleList = userService.listRoles(user.getId());
@@ -55,9 +55,13 @@ public class DefaultRealm extends AuthorizingRealm {
 
 			if (log.isDebugEnabled()) {
 				Set<String> roles = authzInfo.getRoles();
-				log.debug("load roles {}", roles.size());
+				if (null != roles) {
+					log.debug("load roles {}", roles.size());
+				}
 				Set<String> perms = authzInfo.getStringPermissions();
-				log.debug("load permissions {}", perms.size());
+				if (null != perms) {
+					log.debug("load permissions {}", perms.size());
+				}
 			}
 		}
 		return authzInfo;
@@ -70,13 +74,13 @@ public class DefaultRealm extends AuthorizingRealm {
 		AuthenticationInfo authcInfo = null;
 		UsernamePasswordToken t = (UsernamePasswordToken) token;
 		User user = userService.getByUserName(t.getUsername());
-		if (null!=user) {
-			authcInfo = new SimpleAuthenticationInfo(user.getUserName(), user.getPassword(),
-					this.getName());
+		if (null != user) {
+			authcInfo = new SimpleAuthenticationInfo(user.getUserName(),
+					user.getPassword(), this.getName());
 
 			if (log.isDebugEnabled()) {
-				log.debug("realm {} load authentication info. username:{}",this.getName(),
-						t.getUsername());
+				log.debug("realm {} load authentication info. username:{}",
+						this.getName(), t.getUsername());
 			}
 		}
 		return authcInfo;

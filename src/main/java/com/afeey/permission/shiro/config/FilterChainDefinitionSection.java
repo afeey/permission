@@ -33,7 +33,7 @@ public class FilterChainDefinitionSection implements FactoryBean<Section> {
 	/**
 	 * 默认权限字格式化符串
 	 */
-	public static final String PREMISSION_STRING = "perms[{0}]";
+	public static final String PREMISSION_STRING = "perms[\"{0}\"]";
 
 	@Override
 	public Section getObject() throws Exception {
