@@ -12,6 +12,7 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.util.ByteSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,12 +72,13 @@ public class DefaultRealm extends AuthorizingRealm {
 	protected AuthenticationInfo doGetAuthenticationInfo(
 			AuthenticationToken token) throws AuthenticationException {
 
-		AuthenticationInfo authcInfo = null;
+		SimpleAuthenticationInfo authcInfo = null;
 		UsernamePasswordToken t = (UsernamePasswordToken) token;
 		User user = userService.getByUserName(t.getUsername());
 		if (null != user) {
 			authcInfo = new SimpleAuthenticationInfo(user.getUserName(),
 					user.getPassword(), this.getName());
+			authcInfo.setCredentialsSalt(ByteSource.Util.bytes(t.getCredentials()));
 
 			if (log.isDebugEnabled()) {
 				log.debug("realm {} load authentication info. username:{}",
