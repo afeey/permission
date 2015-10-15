@@ -5,7 +5,7 @@
 	<title>首页</title>
 </head>
 <body>
-	<h2>sessionid:</h2>
-	<div>${sessionid}</div>
+	<h3>username:${username}</h3>
+	<h3>sessionid:${sessionid}</h3>
 </body>
 </html>
