@@ -15,12 +15,12 @@
 	</bean>
 	
 	<!-- 认证域  -->
-	<bean id="realm" class="com.dangjiamao.api.shiro.realm.AuthorizingRealm" >
+	<bean id="realm" class="com.afeey.permission.shiro.realm.AuthorizingRealm" >
 		<property name="credentialsMatcher" ref="credentialsMatcher" />
 	</bean>
 	
 	<!-- Hash密码加密服务 -->
-	<bean id="hashPasswordService" class="com.dangjiamao.api.shiro.credential.HashPasswordService" >
+	<bean id="hashPasswordService" class="com.afeey.permission.shiro.credential.HashPasswordService" >
 		<property name="credentialsMatcher" ref="credentialsMatcher" />
 	</bean>
 	
@@ -62,7 +62,7 @@
 		<property name="sessionManager" ref="sessionManager" />
 	</bean>
 	
-	<bean id="filterChainDefinitionMap" class="com.dangjiamao.api.shiro.config.FilterChainDefinitionSection">
+	<bean id="filterChainDefinitionMap" class="com.afeey.permission.shiro.config.FilterChainDefinitionSection">
 		<property name="filterChainDefinitions">
 			<value>
 			    /api/session = ac
@@ -88,7 +88,7 @@
 	</bean>
 	
 	<!-- 跨域访问控制  -->
-	<bean id="accessControlAllowOriginFilter" class="com.dangjiamao.api.shiro.filter.AccessControlAllowOriginFilter">    
+	<bean id="accessControlAllowOriginFilter" class="com.afeey.permission.shiro.filter.AccessControlAllowOriginFilter">    
 		<property name="hosts">
 		    <list>
 		        <value>localhost</value>
@@ -99,7 +99,7 @@
 	</bean>
 	
 	<!-- 认证过滤器  -->
-	<bean id="authenticationFilter" class="com.dangjiamao.api.shiro.filter.authc.AuthenticationFilter">
+	<bean id="authenticationFilter" class="com.afeey.permission.shiro.filter.authc.AuthenticationFilter">
 		<property name="unauthenticatedUrl" value="/api/not_login" />
 	</bean>
 
@@ -107,7 +107,7 @@
 		<property name="securityManager" ref="securityManager" />
 		<property name="loginUrl" value="/" />
 		<property name="successUrl" value="/" />
-		<property name="unauthorizedUrl" value="/api/unauthorized" />
+		<property name="unauthorizedUrl" value="/json/unauthorized" />
 		<property name="filterChainDefinitionMap" ref="filterChainDefinitionMap" />
 		<property name="filters">  
             <map>
