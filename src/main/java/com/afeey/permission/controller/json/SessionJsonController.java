@@ -8,7 +8,6 @@ import org.apache.shiro.session.mgt.eis.SessionDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 会话控制器
