@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--IResourceDao映射文件-->
+<mapper namespace="com.afeey.permission.core.dao.IResourceDao">
+	<resultMap id="ResourceMap" type="Resource">
+		<result property="id" column="id" />
+		<result property="parentId" column="parent_id" />
+		<result property="name" column="name" />
+		<result property="type" column="type" />
+		<result property="url" column="url" />
+		<result property="permissions" column="permissions" />
+		<result property="status" column="status" />
+		<result property="comment" column="comment" />
+		<result property="createAt" column="create_at" />
+		<result property="updateAt" column="update_at" />
+	</resultMap>
+
+	<insert id="insert" parameterType="Resource" useGeneratedKeys="true" keyProperty="id"> 
+    	<selectKey keyProperty="id" resultType="java.lang.String" order="BEFORE">
+    		select uuid()
+　　		</selectKey>
+		INSERT INTO sys_resource
+		(id, parent_id, name, type,  url, permissions, status, comment, create_at, update_at)
+		VALUE
+		(#{id}, #{parentId}, #{name}, #{type}, #{url}, #{permissions}, #{status}, #{comment}, #{createAt}, #{updateAt})
+	</insert>
+	
+	<update id="update" parameterType="Resource">
+	<![CDATA[
+		UPDATE sys_resource 
+		SET
+        parent_id=#{parentId}, 
+        name=#{name}, 
+        type=#{type}, 
+        url=#{url}, 
+        permissions=#{permissions}, 
+        status=#{status}, 
+        comment=#{comment}, 
+        create_at=#{createAt}, 
+        update_at=#{updateAt}
+		WHERE
+		id=#{id}
+	]]>
+	</update>
+	
+	<delete id="delete" parameterType="String">
+		DELETE FROM sys_resource
+		WHERE id=#{id}
+	</delete>
+
+    <select id="selectById" parameterType="String" resultMap="ResourceMap">
+        SELECT * FROM sys_resource WHERE id=#{id} 
+    </select>
+    
+    <select id="selectByRoleId" parameterType="String" resultMap="ResourceMap">
+        SELECT r.* FROM sys_resource r 
+        RIGHT JOIN sys_role_resource rr ON r.id=rr.resource_id 
+        WHERE rr.role_id=#{roleid} 
+    </select>
+    
+	<select id="selectByParams" parameterType="java.util.HashMap" resultMap="ResourceMap">
+		SELECT * FROM sys_resource
+		<where> 
+			<if test="params.parentId != null">
+				parent_id=#{params.parentId}
+			</if> 
+			<if test="params.name != null and params.name!=''">
+				AND name LIKE CONCAT('%',#{params.name},'%') 
+			</if>  
+			<if test="params.type != null">
+				AND type=#{params.type}
+			</if>
+			<if test="params.url != null and params.url!=''">
+				AND url LIKE CONCAT('%',#{params.url},'%')
+			</if>
+			<if test="params.status != null">
+				AND status=#{params.status}
+			</if>
+		</where>
+		ORDER BY url asc
+	</select>
+</mapper>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--IUserDao映射文件-->
+<mapper namespace="com.afeey.permission.core.dao.IUserDao">
+	<resultMap id="UserMap" type="User">
+		<result property="id" column="id" />
+		<result property="userName" column="user_name" />
+		<result property="password" column="password" />
+		<result property="cellphone" column="cellphone" />
+		<result property="mail" column="mail" />
+		<result property="money" column="money" />
+		<result property="alias" column="alias" />
+		<result property="fullName" column="full_name" />
+		<result property="sex" column="sex" />
+		<result property="birthday" column="birthday" />
+		<result property="idCard" column="id_card" />
+		<result property="regTime" column="reg_time" />
+		<result property="validate" column="validate" />
+		<result property="loginTime" column="login_time" />
+		<result property="loginIp" column="login_ip" />
+		<result property="loginTimes" column="login_times" />
+		<result property="status" column="status" />
+	</resultMap>
+
+	<insert id="insert" parameterType="User" useGeneratedKeys="true" keyProperty="id"> 
+    	<selectKey keyProperty="id" resultType="java.lang.String" order="BEFORE">
+    		select uuid()
+　　		</selectKey>
+		INSERT INTO sys_user
+		(id, user_name, password, cellphone, mail, money, alias, full_name, sex, birthday, id_card, reg_time, validate, login_time, login_ip, login_times, status)
+		VALUE
+		(#{id}, #{userName}, #{password}, #{cellphone}, #{mail}, #{money}, #{alias}, #{fullName}, #{sex}, #{birthday}, #{idCard}, #{regTime}, #{validate}, #{loginTime}, #{loginIp}, #{loginTimes}, #{status})
+	</insert>
+	
+	<update id="update" parameterType="User">
+	<![CDATA[
+		UPDATE sys_user 
+		SET
+        user_name=#{userName}, 
+        password=#{password}, 
+        cellphone=#{cellphone}, 
+        mail=#{mail}, 
+        money=#{money}, 
+        alias=#{alias}, 
+        full_name=#{fullName}, 
+        sex=#{sex}, 
+        birthday=#{birthday}, 
+        id_card=#{idCard}, 
+        reg_time=#{regTime}, 
+        validate=#{validate}, 
+        login_time=#{loginTime}, 
+        login_ip=#{loginIp}, 
+        login_times=#{loginTimes}, 
+        status=#{status}
+		WHERE
+		id=#{id}
+	]]>
+	</update>
+	
+	<delete id="delete" parameterType="String">
+		DELETE FROM sys_user
+		WHERE id=#{id}
+	</delete>
+
+    <select id="selectById" parameterType="String" resultMap="UserMap">
+        SELECT * FROM sys_user WHERE id=#{id} 
+    </select>
+    
+     <select id="selectByUserName" parameterType="String" resultMap="UserMap">
+        SELECT * FROM sys_user WHERE user_name=#{userName} 
+    </select>
+    
+     <select id="selectByCellphone" parameterType="String" resultMap="UserMap">
+        SELECT * FROM sys_user WHERE cellphone=#{cellphone} 
+    </select>
+    
+     <select id="selectByMail" parameterType="String" resultMap="UserMap">
+        SELECT * FROM sys_user WHERE mail=#{mail} 
+    </select>
+    
+	<select id="selectByParams" parameterType="java.util.HashMap" resultMap="UserMap">
+		SELECT * FROM sys_user
+		WHERE 1=1
+		<if test="params.id != null">
+			AND id != #{params.id}
+		</if>
+		<if test="params.roleId != null">
+			AND id IN (select user_id from sys_user_role where role_id=#{params.roleId})
+		</if>  
+		<if test="params.userName != null">
+			AND user_name=#{params.userName}
+		</if>
+		<if test="params.cellphone != null">
+			AND cellphone=#{params.cellphone}
+		</if>
+		<if test="params.mail != null">
+			AND mail=#{params.mail}
+		</if>
+		<if test="params.status != null">
+			AND status=#{params.status}
+		</if>
+		ORDER BY user_name 
+	</select>
+</mapper>

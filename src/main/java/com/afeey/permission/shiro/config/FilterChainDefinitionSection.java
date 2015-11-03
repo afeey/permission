@@ -11,13 +11,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.dangjiamao.core.po.permission.Resource;
-import com.dangjiamao.core.service.permission.IResourceService;
+import com.afeey.permission.core.po.Resource;
+import com.afeey.permission.core.service.IResourceService;
 
 /**
  * 过滤链定义Section
  * 
- * @author afeey
+ * @author 王跃飞
  *
  */
 public class FilterChainDefinitionSection implements FactoryBean<Section> {
@@ -56,17 +56,6 @@ public class FilterChainDefinitionSection implements FactoryBean<Section> {
 						MessageFormat.format(PREMISSION_STRING, permissions));
 			}
 		}
-		// section.put("/admin", "authc");
-		// section.put("/admin/permission",
-		// MessageFormat.format(PREMISSION_STRING, "permission"));
-		// section.put("/admin/resource",
-		// MessageFormat.format(PREMISSION_STRING, "resource"));
-		// section.put("/admin/role",
-		// MessageFormat.format(PREMISSION_STRING, "role"));
-		// section.put("/admin/user",
-		// MessageFormat.format(PREMISSION_STRING, "user"));
-		// section.put("/admin/region",
-		// MessageFormat.format(PREMISSION_STRING, "region"));
 
 		if (log.isDebugEnabled()) {
 			log.debug("load urls:");

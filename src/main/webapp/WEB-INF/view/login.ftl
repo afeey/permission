@@ -49,7 +49,7 @@
     	$('#login').val("登录中...");
     	$.ajax({
     		type: "post",
-    		url: "${rc.contextPath}/login",
+    		url: "http:/192.168.1.119/api/api/login",
     		data: user,
     		dataType: "json",
      		success: function(data){

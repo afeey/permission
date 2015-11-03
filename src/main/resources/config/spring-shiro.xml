@@ -7,40 +7,114 @@
     http://www.springframework.org/schema/context   
     http://www.springframework.org/schema/context/spring-context-4.1.xsd">
 
-	<bean id="hashPasswordService" class="com.afeey.permission.shiro.credential.HashPasswordService" >
-		<property name="credentialsMatcher" ref="credentialsMatcher" />
-	</bean>
-
+	<!-- 凭证匹配器 -->
 	<bean id="credentialsMatcher" class="org.apache.shiro.authc.credential.HashedCredentialsMatcher" >
 		<property name="hashAlgorithmName" value="Md5" />
 		<property name="hashIterations" value="2" />
 		<property name="storedCredentialsHexEncoded" value="true" />
 	</bean>
-
-	<bean id="defaultRealm" class="com.afeey.permission.shiro.realm.DefaultRealm" >
+	
+	<!-- 认证域  -->
+	<bean id="realm" class="com.dangjiamao.api.shiro.realm.AuthorizingRealm" >
 		<property name="credentialsMatcher" ref="credentialsMatcher" />
 	</bean>
-
-	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
-		<property name="realm" ref="defaultRealm" />
+	
+	<!-- Hash密码加密服务 -->
+	<bean id="hashPasswordService" class="com.dangjiamao.api.shiro.credential.HashPasswordService" >
+		<property name="credentialsMatcher" ref="credentialsMatcher" />
 	</bean>
 	
-	<bean id="filterChainDefinitionMap" class="com.afeey.permission.shiro.config.FilterChainDefinitionSection">
+	<!-- sessionid生成器 -->
+	<bean id="sessionIdGenerator" class="org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator" />
+	
+	<!-- sessionIdCookie模板 -->
+	<bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie" >
+		<property name="name" value="sid" />
+		<property name="domain" value="" />
+		<property name="path" value="" />
+		<property name="maxAge" value="-1" />
+		<property name="httpOnly" value="true" />
+	</bean>
+		
+	<!-- session持久化DAO -->
+	<bean id="sessionDAO" class="org.apache.shiro.session.mgt.eis.MemorySessionDAO">
+		<property name="sessionIdGenerator" ref="sessionIdGenerator" />
+	</bean>
+	
+	<!-- 会话验证调度器 -->
+	<bean id="sessionValidationScheduler" class="org.apache.shiro.session.mgt.ExecutorServiceSessionValidationScheduler">
+        <property name="interval" value="300000"/>
+        <property name="sessionManager" ref="sessionManager"/>
+    </bean>
+	
+	<!-- 会话管理器  -->
+	<bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager" >
+	   	<property name="globalSessionTimeout" value="300000"/>
+	   	<property name="sessionValidationSchedulerEnabled" value="true"/>
+        <property name="sessionValidationScheduler" ref="sessionValidationScheduler"/>
+        <property name="sessionDAO" ref="sessionDAO"/>
+        <property name="sessionIdCookie" ref="sessionIdCookie"/>
+	</bean> 
+	
+	<!-- 安全管理器  -->
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="realm" ref="realm" /> 
+		<property name="sessionManager" ref="sessionManager" />
+	</bean>
+	
+	<bean id="filterChainDefinitionMap" class="com.dangjiamao.api.shiro.config.FilterChainDefinitionSection">
 		<property name="filterChainDefinitions">
 			<value>
-				/login = authc
-				/logout = logout
-				/unauthorized = authc
+			    /api/session = ac
+			    /api/session_list = ac
+				/api/login = ac,anon
+				/api/logout = ac
+				/api/unauthorized = ac,anon
+				/api/brand/** = ac
+				/api/category/** = ac
+				/api/dealer/** = ac
+				/api/evaluation/** = ac
+				/api/img/** = ac
+				/api/captcha/** = ac
+				/api/order/** = ac
+				/api/producer/** = ac
+				/api/product/** = ac
+				/api/region/** = ac
+				/api/store/** = ac
+				/api/tool/** = ac
+				/api/user/** = ac
 			</value>
 		</property>
+	</bean>
+	
+	<!-- 跨域访问控制  -->
+	<bean id="accessControlAllowOriginFilter" class="com.dangjiamao.api.shiro.filter.AccessControlAllowOriginFilter">    
+		<property name="hosts">
+		    <list>
+		        <value>localhost</value>
+		        <value>127.0.0.1</value>
+		        <value>djm.afeey.com</value>
+		    </list>
+		</property>
+	</bean>
+	
+	<!-- 认证过滤器  -->
+	<bean id="authenticationFilter" class="com.dangjiamao.api.shiro.filter.authc.AuthenticationFilter">
+		<property name="unauthenticatedUrl" value="/api/not_login" />
 	</bean>
 
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<property name="securityManager" ref="securityManager" />
-		<property name="loginUrl" value="/login" />
-		<property name="successUrl" value="/login_success"/>
-		<property name="unauthorizedUrl" value="/unauthorized" />
+		<property name="loginUrl" value="/" />
+		<property name="successUrl" value="/" />
+		<property name="unauthorizedUrl" value="/api/unauthorized" />
 		<property name="filterChainDefinitionMap" ref="filterChainDefinitionMap" />
+		<property name="filters">  
+            <map>
+               <entry key="ac" value-ref="accessControlAllowOriginFilter"/>
+               <entry key="authc" value-ref="authenticationFilter"/>
+            </map>
+       </property>
 	</bean>
 	
 	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--IUserRoleDao映射文件-->
+<mapper namespace="com.afeey.permission.core.dao.IUserRoleDao">
+	<resultMap id="UserRoleMap" type="UserRole">
+		<result property="id" column="id" />
+		<result property="userId" column="user_id" />
+		<result property="roleId" column="role_id" />
+		<result property="createAt" column="create_at" />
+	</resultMap>
+
+	<insert id="insert" parameterType="UserRole" useGeneratedKeys="true" keyProperty="id"> 
+    	<selectKey keyProperty="id" resultType="java.lang.String" order="BEFORE">
+    		select uuid()
+　　		</selectKey>
+		INSERT INTO sys_user_role
+		(id, user_id, role_id, create_at)
+		VALUE
+		(#{id}, #{userId}, #{roleId}, #{createAt})
+	</insert>
+	
+	<delete id="deleteByParams" parameterType="java.util.HashMap">
+		DELETE FROM sys_user_role
+		WHERE 1=1
+		<if test="params.id != null">
+			AND id=#{params.id}
+		</if> 
+		<if test="params.userId != null">
+			AND user_id=#{params.userId}
+		</if>  
+		<if test="params.roleId != null">
+			AND role_id=#{params.roleId}
+		</if>
+	</delete>
+
+    <select id="selectById" parameterType="String" resultMap="UserRoleMap">
+        SELECT * FROM sys_user_role WHERE id=#{id} 
+    </select>
+    
+	<select id="selectByParams" parameterType="java.util.HashMap" resultMap="UserRoleMap">
+		SELECT * FROM sys_user_role
+		WHERE 1=1
+		<if test="params.userId != null">
+			AND user_id=#{params.userId}
+		</if>  
+		<if test="params.roleId != null">
+			AND role_id=#{params.roleId}
+		</if>
+	</select>
+</mapper>

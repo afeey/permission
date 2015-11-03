@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--IRoleResourceDao映射文件-->
+<mapper namespace="com.afeey.permission.core.dao.IRoleResourceDao">
+	<resultMap id="RoleResourceMap" type="RoleResource">
+		<result property="id" column="id" />
+		<result property="roleId" column="role_id" />
+		<result property="resourceId" column="resource_id" />
+		<result property="createAt" column="create_at" />
+	</resultMap>
+
+	<insert id="insert" parameterType="RoleResource" useGeneratedKeys="true" keyProperty="id"> 
+    	<selectKey keyProperty="id" resultType="java.lang.String" order="BEFORE">
+    		select uuid()
+　　		</selectKey>
+		INSERT INTO sys_role_resource
+		(id, role_id, resource_id, create_at)
+		VALUE
+		(#{id}, #{roleId}, #{resourceId}, #{createAt})
+	</insert>
+	
+	<delete id="deleteByParams" parameterType="java.util.HashMap">
+		DELETE FROM sys_role_resource
+		WHERE 1=1
+		<if test="params.roleId != null">
+			AND role_id=#{params.roleId}
+		</if>  
+		<if test="params.resourceId != null">
+			AND resource_id=#{params.resourceId}
+		</if>
+	</delete>
+
+    <select id="selectById" parameterType="String" resultMap="RoleResourceMap">
+        SELECT * FROM sys_role_resource WHERE id=#{id} 
+    </select>
+    
+	<select id="selectByParams" parameterType="java.util.HashMap" resultMap="RoleResourceMap">
+		SELECT * FROM sys_role_resource
+		WHERE 1=1
+		<if test="params.roleId != null">
+			AND role_id=#{params.roleId}
+		</if>  
+		<if test="params.resourceId != null">
+			AND resource_id=#{params.resourceId}
+		</if>
+	</select>
+</mapper>

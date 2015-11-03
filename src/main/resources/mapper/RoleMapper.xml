@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--IRoleDao映射文件 -->
+<mapper namespace="com.afeey.permission.core.dao.IRoleDao">
+	<resultMap id="RoleMap" type="Role">
+		<result property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="code" column="code" />
+		<result property="comment" column="comment" />
+		<result property="status" column="status" />
+		<result property="sort" column="sort" />
+		<result property="createAt" column="create_at" />
+		<result property="updateAt" column="update_at" />
+		<result property="permissions" column="permissions" />
+	</resultMap>
+
+	<insert id="insert" parameterType="Role" useGeneratedKeys="true"
+		keyProperty="id">
+		<selectKey keyProperty="id" resultType="java.lang.String"
+			order="BEFORE">
+			select uuid()
+		</selectKey>
+		INSERT INTO sys_role
+		(id, name, code, comment, status, sort, create_at,
+		update_at,permissions)
+		VALUE
+		(#{id}, #{name}, #{code}, #{comment}, #{status},
+		#{sort}, #{createAt}, #{updateAt},#{permissions})
+	</insert>
+
+	<update id="update" parameterType="Role">
+	<![CDATA[
+		UPDATE sys_role 
+		SET
+        name=#{name}, 
+        code=#{code}, 
+        comment=#{comment}, 
+        status=#{status}, 
+        sort=#{sort}, 
+        create_at=#{createAt}, 
+        update_at=#{updateAt},
+        permissions=#{permissions}
+		WHERE
+		id=#{id}
+	]]>
+	</update>
+
+	<delete id="delete" parameterType="String">
+		DELETE FROM sys_role
+		WHERE
+		id=#{id}
+	</delete>
+
+	<select id="selectById" parameterType="String" resultMap="RoleMap">
+		SELECT * FROM sys_role WHERE id=#{id}
+	</select>
+
+	<select id="selectByName" parameterType="String" resultMap="RoleMap">
+		SELECT * FROM sys_role WHERE name=#{name}
+	</select>
+
+	<select id="selectByCode" parameterType="String" resultMap="RoleMap">
+		SELECT * FROM sys_role WHERE code=#{code}
+	</select>
+
+	<select id="selectMaxSort" resultType="int">
+		SELECT COALESCE(max(sort), 0) FROM sys_role
+	</select>
+	
+	<select id="selectByUserId" resultType="String" resultMap="RoleMap">
+		SELECT r.* FROM sys_role r
+		RIGHT JOIN sys_user_role ur ON r.id=ur.role_id 
+		WHERE 
+		ur.user_id=#{userId}
+	</select>
+
+	<select id="selectByParams" parameterType="java.util.HashMap"
+		resultMap="RoleMap">
+		SELECT * FROM sys_role
+		<where>
+			<if test="params.name != null">
+				AND name like CONCAT('%',#{params.name},'%')
+			</if>
+			<if test="params.code != null">
+				AND code like CONCAT('%',#{params.code},'%')
+			</if>
+			<if test="params.status != null">
+				AND status=#{params.status}
+			</if>
+		</where>
+		ORDER BY sort
+	</select>
+</mapper>
