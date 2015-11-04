@@ -87,15 +87,15 @@ public class LoginJsonController {
 		result.setCode(success ? "200" : "401");
 		result.setMessage(msg);
 		
-		return result.toString();
+		return result;
 	}
 	
 	/**
 	 * 用户注销
 	 * @return json
 	 */
-	@RequestMapping(value="/logout")
-	public String logout(){
+	@RequestMapping(value = "/logout")
+	public Object logout(){
 		
 		boolean success = false;
 		String msg = "";
@@ -120,15 +120,15 @@ public class LoginJsonController {
 		result.setCode(success ? "200" : "401");
 		result.setMessage(msg);
 		
-		return result.toString();
+		return result;
 	}
 	
 	/**
 	 * 未登录
 	 * @return json
 	 */
-	@RequestMapping(value="/not_login")
-	public String notLogin(){
+	@RequestMapping(value = "/not_login")
+	public Object notLogin(){
 		boolean success = false;
 		String msg = "未登录";
 		
@@ -136,23 +136,23 @@ public class LoginJsonController {
 		result.setCode(success ? "200" : "401");
 		result.setMessage(msg);
 		
-		return result.toString();
+		return result;
 	}
 	
 	/**
 	 * 没有权限
 	 * @return json
 	 */
-	@RequestMapping(value="/unauthorized")
-	public String unauthorized(){
+	@RequestMapping(value = "/unauthorized")
+	public Object unauthorized(){
 		boolean success = false;
 		String msg = "没有权限";
 		
 		JsonResult result=new JsonResult();
-		result.setCode(success ? "200" : "401");
+		result.setCode(success ? "200" : "402");
 		result.setMessage(msg);
 		
-		return result.toString();
+		return result;
 	}
 	
 }

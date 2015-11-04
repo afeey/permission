@@ -67,12 +67,17 @@
     		xhrFields: { withCredentials: true },
        		crossDomain: true,
      		success: function(result){
-				if(result.code!='200'){
-					$('#msg').html("加载失败");
-					return;
+				if(result.code=='200'){
+					$('#msg').html("");
+				}else{
+					alert(result.message);
+					if(result.code=='401'){
+						window.location.href='login.html';
+					}else if(result.code=='402'){
+						window.location.href='unauthorized.html';
+					}					
 				}
 				
-				$('#msg').html("");
 				var trs="";
 				var data=result.data;
 				for(var i=0;i<data.length;i++){

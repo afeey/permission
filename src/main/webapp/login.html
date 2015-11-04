@@ -60,7 +60,7 @@
      		success: function(data){
      			$('#login').val("登录");
      			if(data.code=='200'){
-     				location.href='session.html';
+     				window.location.href='session.html';
      			}else{
      				$('#msg').html(data.message);
      			}
