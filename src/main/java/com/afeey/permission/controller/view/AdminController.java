@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 /**
  * 管理控制器
  * 
- * @author afeey
+ * @author 王跃飞
  *
  */
 @Controller
@@ -18,8 +18,8 @@ public class AdminController {
 	/**
 	 * 管理界面
 	 * URL:/admin
-	 * @param model
-	 * @return String
+	 * @param model Model
+	 * @return view
 	 */
 	@RequestMapping("/admin")
 	public String manage(Model model) {

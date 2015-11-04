@@ -16,7 +16,7 @@ public class HashPasswordService {
 	/**
 	 * 返回加密密码
 	 * 
-	 * @param password
+	 * @param password 密码
 	 * @return 返回加密密码
 	 */
 	public String hashPassword(String password) {

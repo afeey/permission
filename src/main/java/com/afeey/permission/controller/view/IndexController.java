@@ -26,8 +26,9 @@ public class IndexController {
 
 	/**
 	 * 首页
-	 * URL:/
-	 * @return String
+	 * @param model model
+	 * @param session Session
+	 * @return view
 	 */
 	@RequestMapping("/")
 	public String index(Model model, HttpSession session) {
@@ -47,7 +48,7 @@ public class IndexController {
 	
 	/**
 	 * 未授权
-	 * @return
+	 * @return view
 	 */
 	@RequestMapping("/unauthorized")
 	public String unauthorized() {

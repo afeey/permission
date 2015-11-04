@@ -62,27 +62,29 @@
 		<property name="sessionManager" ref="sessionManager" />
 	</bean>
 	
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<property name="securityManager" ref="securityManager" />
+		<property name="loginUrl" value="/" />
+		<property name="successUrl" value="/" />
+		<property name="unauthorizedUrl" value="/json/unauthorized" />
+		<property name="filterChainDefinitionMap" ref="filterChainDefinitionMap" />
+		<property name="filters">  
+            <map>
+               <entry key="ac" value-ref="accessControlAllowOriginFilter"/>
+               <entry key="authc" value-ref="authenticationFilter"/>
+            </map>
+       </property>
+	</bean>
+	
 	<bean id="filterChainDefinitionMap" class="com.afeey.permission.shiro.config.FilterChainDefinitionSection">
 		<property name="filterChainDefinitions">
 			<value>
-			    /api/session = ac
-			    /api/session_list = ac
-				/api/login = ac,anon
-				/api/logout = ac
-				/api/unauthorized = ac,anon
-				/api/brand/** = ac
-				/api/category/** = ac
-				/api/dealer/** = ac
-				/api/evaluation/** = ac
-				/api/img/** = ac
-				/api/captcha/** = ac
-				/api/order/** = ac
-				/api/producer/** = ac
-				/api/product/** = ac
-				/api/region/** = ac
-				/api/store/** = ac
-				/api/tool/** = ac
-				/api/user/** = ac
+				/json/login = ac
+				/json/logout = ac
+				/json/unauthorized = ac,authc
+				/json/resource/** = ac,authc,perms["resource:*"]
+				/json/role/** = ac,authc,perms["role:*"]
+				/json/user/** = ac,authc,perms["user:*"]
 			</value>
 		</property>
 	</bean>
@@ -100,21 +102,7 @@
 	
 	<!-- 认证过滤器  -->
 	<bean id="authenticationFilter" class="com.afeey.permission.shiro.filter.authc.AuthenticationFilter">
-		<property name="unauthenticatedUrl" value="/api/not_login" />
-	</bean>
-
-	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
-		<property name="securityManager" ref="securityManager" />
-		<property name="loginUrl" value="/" />
-		<property name="successUrl" value="/" />
-		<property name="unauthorizedUrl" value="/json/unauthorized" />
-		<property name="filterChainDefinitionMap" ref="filterChainDefinitionMap" />
-		<property name="filters">  
-            <map>
-               <entry key="ac" value-ref="accessControlAllowOriginFilter"/>
-               <entry key="authc" value-ref="authenticationFilter"/>
-            </map>
-       </property>
+		<property name="unauthenticatedUrl" value="/json/not_login" />
 	</bean>
 	
 	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />

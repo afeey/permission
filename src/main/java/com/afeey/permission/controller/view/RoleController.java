@@ -17,8 +17,8 @@ public class RoleController {
 	/**
 	 * 角色管理
 	 * URL:/admin/role
-	 * @param model
-	 * @return String
+	 * @param model model
+	 * @return view
 	 */
 	@RequestMapping("/role")
 	public String region(Model model) {

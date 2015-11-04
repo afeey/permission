@@ -1,7 +1,6 @@
 package com.afeey.permission.controller.json;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -13,6 +12,7 @@ import org.apache.shiro.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,6 +26,7 @@ import com.afeey.permission.core.service.IUserService;
  * @author 王跃飞
  *
  */
+@Controller
 @ResponseBody
 @RequestMapping("/json")
 public class LoginJsonController {
@@ -41,7 +42,7 @@ public class LoginJsonController {
 	 * @return json
 	 */
 	@RequestMapping(value="/login",method = RequestMethod.POST)
-	public String login(HttpServletRequest request,HttpServletResponse response) {
+	public Object login(HttpServletRequest request) {
 		boolean success = false;
 		String msg = "";
 		
@@ -130,6 +131,22 @@ public class LoginJsonController {
 	public String notLogin(){
 		boolean success = false;
 		String msg = "未登录";
+		
+		JsonResult result=new JsonResult();
+		result.setCode(success ? "200" : "401");
+		result.setMessage(msg);
+		
+		return result.toString();
+	}
+	
+	/**
+	 * 没有权限
+	 * @return json
+	 */
+	@RequestMapping(value="/unauthorized")
+	public String unauthorized(){
+		boolean success = false;
+		String msg = "没有权限";
 		
 		JsonResult result=new JsonResult();
 		result.setCode(success ? "200" : "401");

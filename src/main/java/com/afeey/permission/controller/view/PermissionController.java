@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 /**
  * 权限控制器
  * 
- * @author afeey
+ * @author 王跃飞
  *
  */
 @Controller
@@ -17,8 +17,8 @@ public class PermissionController {
 	/**
 	 * 权限管理
 	 * URL:/admin/permission
-	 * @param model
-	 * @return String
+	 * @param model model
+	 * @return view
 	 */
 	@RequestMapping("/permission")
 	public String region(Model model) {

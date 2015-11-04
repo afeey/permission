@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 /**
  * 安全控制器
  * 
- * @author afeey
+ * @author 王跃飞
  *
  */
 @Controller
@@ -22,6 +22,12 @@ public class LoginController {
 	private static final Logger log = LoggerFactory
 			.getLogger(LoginController.class);
 
+	/**
+	 * 登录
+	 * @param model model
+	 * @param request request
+	 * @return view
+	 */
 	@RequestMapping("/login")
 	public String login(Model model, HttpServletRequest request) {
 

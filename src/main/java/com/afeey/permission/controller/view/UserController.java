@@ -17,8 +17,8 @@ public class UserController {
 	/**
 	 * 用户管理
 	 * URL:/admin/user
-	 * @param model
-	 * @return String
+	 * @param model model
+	 * @return view
 	 */
 	@RequestMapping("/user")
 	public String region(Model model) {

@@ -17,8 +17,8 @@ public class RegionController {
 	/**
 	 * 地区管理
 	 * URL:/admin/region
-	 * @param model
-	 * @return String
+	 * @param model model
+	 * @return view 
 	 */
 	@RequestMapping("/region")
 	public String region(Model model) {

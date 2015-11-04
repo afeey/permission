@@ -17,8 +17,8 @@ public class ResourceController {
 	/**
 	 * 地区管理
 	 * URL:/admin/resource
-	 * @param model
-	 * @return String
+	 * @param model model
+	 * @return view
 	 */
 	@RequestMapping("/resource")
 	public String region(Model model) {
