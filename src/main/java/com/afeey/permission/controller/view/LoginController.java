@@ -30,24 +30,7 @@ public class LoginController {
 	 */
 	@RequestMapping("/login")
 	public String login(Model model, HttpServletRequest request) {
-
-		String failure = request.getAttribute("shiroLoginFailure") != null ? (String) request
-				.getAttribute("shiroLoginFailure") : null;
-
-		Subject subject = SecurityUtils.getSubject();
-		if (null != failure) {
-			log.debug("forward login_failure");
-			return "forward:login_failure";
-			
-		} else if (subject.isAuthenticated()) {
-			log.debug("forward logined");
-			return "forward:logined";
-			
-		} else {
-			log.debug("return login");
 			return "login";
-			
-		}
 	}
 	
 	@RequestMapping("/logined")
