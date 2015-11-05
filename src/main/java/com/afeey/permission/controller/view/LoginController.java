@@ -2,10 +2,6 @@ package com.afeey.permission.controller.view;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,10 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class LoginController {
-
-	private static final Logger log = LoggerFactory
-			.getLogger(LoginController.class);
-
+	
 	/**
 	 * 登录
 	 * @param model model
