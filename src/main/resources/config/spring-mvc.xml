@@ -34,7 +34,7 @@
         </property>
     </bean>
      
-    <!-- 视图解释器 
+    <!-- 视图解释器 -->
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
 		<property name="cache" value="false" />
@@ -43,9 +43,9 @@
 		<property name="contentType" value="text/html;charset=UTF-8" />
 		<property name="requestContextAttribute" value="rc" />
 	</bean>
-	-->
+	
 
-	<!-- freemarker 配置 
+	<!-- freemarker 配置 -->
 	<bean id="freemarkerConfig"
 		class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
 		<property name="templateLoaderPath" value="/WEB-INF/view/" />
@@ -60,8 +60,7 @@
 			</props>
 		</property>
 	</bean>
-	-->
-
+	
 	<!-- 异常处理
 	<bean id="exceptionResolver"
 		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
