@@ -3,7 +3,7 @@ package com.afeey.permission.core.exception;
 /**
  * 代码已存在异常
  * 
- * @author 杨金龙
+ * @author yjl
  *
  */
 public class CodeExistException extends ExistException {

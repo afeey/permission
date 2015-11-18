@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * 角色资源关联实体类
  * 
- * @author 杨金龙
+ * @author yjl
  *
  */
 public class RoleResource {

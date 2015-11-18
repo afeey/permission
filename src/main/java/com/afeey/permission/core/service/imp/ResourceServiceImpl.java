@@ -3,7 +3,7 @@
  * Module ID：core
  * JDK Version Used:JDK1.8
  * Description:资源服务层接口实现类
- * @author 杨金龙
+ * @author yjl
  * @version 1.0,2015/08/30
  */
 package com.afeey.permission.core.service.imp;
@@ -36,7 +36,7 @@ import com.github.pagehelper.PageInfo;
 /**
  * 资源服务层接口实现类
  * 
- * @author 杨金龙
+ * @author yjl
  * 
  */
 @Service

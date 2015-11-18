@@ -3,7 +3,7 @@ package com.afeey.permission.core.exception;
 /**
  * 系统内部异常
  * 
- * @author 王跃飞
+ * @author wyf
  *
  */
 public class SystemException extends Exception {

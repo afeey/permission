@@ -9,7 +9,7 @@ import com.afeey.permission.core.po.UserRole;
 
 /**
  * 用户角色关联数据层接口
- * @author 杨金龙
+ * @author yjl
  *
  */
 public interface IUserRoleDao {

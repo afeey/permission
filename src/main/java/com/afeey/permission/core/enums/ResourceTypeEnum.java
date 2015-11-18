@@ -3,7 +3,7 @@ package com.afeey.permission.core.enums;
 /**
  * 资源类型枚举
  * 
- * @author 王跃飞
+ * @author wyf
  *
  */
 public enum ResourceTypeEnum {

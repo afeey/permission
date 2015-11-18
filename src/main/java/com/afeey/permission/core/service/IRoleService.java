@@ -12,7 +12,7 @@ import com.afeey.permission.core.service.IPage;
 /**
  * 角色服务层接口
  * 
- * @author 王跃飞
+ * @author wyf
  *
  */
 public interface IRoleService {

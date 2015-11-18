@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 /**
  * 权限控制器
  * 
- * @author 王跃飞
+ * @author wyf
  *
  */
 @Controller

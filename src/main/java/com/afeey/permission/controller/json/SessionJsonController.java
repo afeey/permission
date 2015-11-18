@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 /**
  * 会话控制器
  * 
- * @author 王跃飞
+ * @author wyf
  *
  */
 @Controller

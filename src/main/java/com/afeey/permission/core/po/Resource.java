@@ -10,7 +10,7 @@ import com.afeey.permission.core.enums.UseStatusEnum;
 /**
  * 资源实体类
  * 
- * @author 杨金龙
+ * @author yjl
  *
  */
 public class Resource {

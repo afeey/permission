@@ -8,7 +8,7 @@ import com.github.pagehelper.PageInfo;
 /**
  * 分页数据接口适配器类，PageInfo转换城IPage
  * 
- * @author 王跃飞
+ * @author wyf
  *
  * @param <T>
  *            类型

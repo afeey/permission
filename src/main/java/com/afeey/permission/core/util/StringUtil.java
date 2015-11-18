@@ -3,7 +3,7 @@ package com.afeey.permission.core.util;
 /**
  * 字符串常用工具类
  * 
- * @author 杨金龙
+ * @author yjl
  *
  */
 public class StringUtil {

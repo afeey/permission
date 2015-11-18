@@ -13,7 +13,7 @@ import com.afeey.permission.core.service.IPage;
 /**
  * 用户服务层接口
  * 
- * @author 杨金龙
+ * @author yjl
  *
  */
 public interface IUserService {

@@ -10,7 +10,7 @@ import com.afeey.permission.core.po.Resource;
 /**
  * 资源数据层接口
  * 
- * @author 杨金龙
+ * @author yjl
  *
  */
 public interface IResourceDao {

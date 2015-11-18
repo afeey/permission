@@ -9,7 +9,7 @@ import com.afeey.permission.core.enums.UseStatusEnum;
 /**
  * 角色实体类
  * 
- * @author 杨金龙
+ * @author yjl
  *
  */
 public class Role {

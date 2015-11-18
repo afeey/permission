@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * 数据分页信息接口
  * 
- * @author 王跃飞
+ * @author wyf
  *
  * @param <T> 类型
  */

@@ -3,7 +3,7 @@ package com.afeey.permission.core.exception;
 /**
  * 手机号已存在异常
  * 
- * @author 杨金龙
+ * @author yjl
  */
 public class CellphoneExistException extends ExistException {
 

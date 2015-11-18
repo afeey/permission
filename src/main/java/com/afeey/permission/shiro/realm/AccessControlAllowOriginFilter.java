@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
  * 访问控制允许源过滤器<br>
  * 允许配置的源访问
  * 
- * @author 王跃飞
+ * @author wyf
  *
  */
 public class AccessControlAllowOriginFilter extends PathMatchingFilter {

@@ -3,7 +3,7 @@ package com.afeey.permission.core.exception;
 /**
  * 已存在异常
  * 
- * @author 王跃飞
+ * @author wyf
  *
  */
 public class ExistException extends SystemException {

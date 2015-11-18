@@ -23,7 +23,7 @@ import com.afeey.permission.core.service.IUserService;
 /**
  * 登录控制器
  * 
- * @author 王跃飞
+ * @author wyf
  *
  */
 @Controller

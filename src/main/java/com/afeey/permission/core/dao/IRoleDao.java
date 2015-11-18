@@ -3,7 +3,7 @@
  * Module ID：core
  * JDK Version Used:JDK1.8
  * Description:角色数据层接口
- * @author 杨金龙
+ * @author yjl
  * @version 1.0,2015/08/30
  */
 package com.afeey.permission.core.dao;
@@ -18,7 +18,7 @@ import com.afeey.permission.core.po.Role;
 /**
  * 角色数据层接口
  * 
- * @author 杨金龙
+ * @author yjl
  *
  */
 public interface IRoleDao {

@@ -6,7 +6,7 @@ import org.apache.shiro.crypto.hash.SimpleHash;
 /**
  * Hash密码加密服务
  * 
- * @author 王跃飞
+ * @author wyf
  *
  */
 public class HashPasswordService {

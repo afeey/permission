@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 /**
  * 管理控制器
  * 
- * @author 王跃飞
+ * @author wyf
  *
  */
 @Controller

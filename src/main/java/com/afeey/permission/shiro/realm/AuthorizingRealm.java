@@ -23,7 +23,7 @@ import com.afeey.permission.core.service.IUserService;
 /**
  * 认证授权域
  * 
- * @author 王跃飞
+ * @author wyf
  *
  */
 public class AuthorizingRealm extends org.apache.shiro.realm.AuthorizingRealm {

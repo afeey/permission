@@ -12,7 +12,7 @@ import com.afeey.permission.core.po.Address;
 /**
  * 用户实体类
  * 
- * @author 杨金龙
+ * @author yjl
  *
  */
 public class User {

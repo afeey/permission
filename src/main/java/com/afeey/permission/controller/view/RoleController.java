@@ -23,6 +23,6 @@ public class RoleController {
 	@RequestMapping("/role")
 	public String region(Model model) {
 		
-		return "admin/role/role";
+		return "admin/role/role_list";
 	}
 }

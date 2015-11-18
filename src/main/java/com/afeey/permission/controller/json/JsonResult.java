@@ -9,7 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 /**
  * Json结果对象
  * 
- * @author 王跃飞
+ * @author wyf
  *
  */
 public class JsonResult {

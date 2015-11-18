@@ -17,7 +17,7 @@ import com.afeey.permission.core.service.IResourceService;
 /**
  * 过滤链定义Section
  * 
- * @author 王跃飞
+ * @author wyf
  *
  */
 public class FilterChainDefinitionSection implements FactoryBean<Section> {

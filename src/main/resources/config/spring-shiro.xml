@@ -84,7 +84,7 @@
 				/json/unauthorized = ac,authc
 				/json/session = ac,authc
 				/json/session_list = ac,authc
-				/json/resource/** = ac,authc,perms["resource:*"]
+				/json/resource/** = ac
 				/json/role/** = ac
 				/json/user/** = ac,authc,perms["user:*"]
 			</value>

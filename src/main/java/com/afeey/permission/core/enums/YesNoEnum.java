@@ -2,7 +2,7 @@ package com.afeey.permission.core.enums;
 
 /**
  * 是/否枚举
- * @author 杨金龙
+ * @author yjl
  *
  */
 public enum YesNoEnum {

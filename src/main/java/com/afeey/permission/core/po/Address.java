@@ -5,7 +5,7 @@ import com.afeey.permission.core.enums.YesNoEnum;
 /**
  * 地址实体类
  * 
- * @author 杨金龙
+ * @author yjl
  *
  */
 public class Address {

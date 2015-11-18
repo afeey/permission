@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 /**
  * 认证过滤器
  * 
- * @author 王跃飞
+ * @author wyf
  *
  */
 public class AuthenticationFilter extends AccessControlFilter{
