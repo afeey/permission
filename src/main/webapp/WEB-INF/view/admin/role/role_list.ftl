@@ -5,6 +5,10 @@
   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
   	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>角色列表</title>
+	
+	<link rel="stylesheet" href="${rc.contextPath}/js/bootstrap/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="${rc.contextPath}/js/datatables/css/dataTables.bootstrap.min.css" />
+	<link rel="stylesheet" href="${rc.contextPath}/css/theme.min.css" />
 </head>
 <body>
 	<ol class="breadcrumb">
@@ -32,14 +36,14 @@
             		<th>名称</th>
             		<th>代码</th>
             		<th>备注</th>
-            		<th>操作</th>
+            		<th style="width:180px;">操作</th>
           		</tr>
         	</thead>
       	</table>
 	</div>
 	
 	<!-- 详细模态 -->
-	<div class="modal fade" id="view_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal fade" id="view_modal" tabindex="-1" role="dialog">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -49,7 +53,18 @@
 					<h4 class="modal-title">详细</h4>
 				</div>
 				<div class="modal-body">
-					
+					<div class="row">
+						<div class="col-md-3 text-right">名称 :</div>
+						<div class="col-md-9" id="v_name"></div>
+					</div>
+					<div class="row">
+						<div class="col-md-3 text-right">代码 :</div>
+						<div class="col-md-9" id="v_code"></div>
+					</div>
+					<div class="row">
+						<div class="col-md-3 text-right">备注 :</div>
+						<div class="col-md-9" id="v_comment""></div>
+					</div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -84,10 +99,8 @@
 	<!-- jquery -->
 	<script src="${rc.contextPath}/js/jquery.min.js"></script>
 	<!-- bootstrap -->
-	<link rel="stylesheet" href="${rc.contextPath}/js/bootstrap/css/bootstrap.min.css" />
 	<script type="text/javascript" src="${rc.contextPath}/js/bootstrap/js/bootstrap.min.js"></script>
 	<!-- datatables -->
-	<link rel="stylesheet" href="${rc.contextPath}/js/datatables/css/dataTables.bootstrap.min.css" />
 	<script type="text/javascript" src="${rc.contextPath}/js/datatables/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" src="${rc.contextPath}/js/datatables/js/dataTables.bootstrap.min.js"></script>
 	
@@ -99,11 +112,11 @@
   			$('#btn_add_save').click(save);
   			
   			//初始化
-  			init();
+  			initTable();
 		});
 		
-		//初始化
-		function init(){
+		//初始化表格
+		function initTable(){
 			$('#list').DataTable({
         		serverSide: true,
         		ajax: {
@@ -118,11 +131,23 @@
                     { data: "name" },
                     { data: "code" },
                     { data: "comment" },
-                    { data: function () {
-                            	return '<a class="btn btn-primary" onclick="showView()">详细</a>';
-                        	}
+                    { 
+                      data: "id",
+                      createdCell: function (td,val,data,row,col) {
+                        var html='<div class="btn-group" role="group" >';
+						html += '	<button type="button" class="btn btn-primary" onclick="showView('+ val +')">详细</button>';
+						html += '	<button type="button" class="btn btn-primary" onclick="showUpdate('+ val +')">修改</button>';
+						html += '	<button type="button" class="btn btn-primary" onclick="deleteItem('+ val +')">删除</button>';
+						html += '</div>';
+                      
+                      	$(td).html(html);
+                      }
                     }
                 ],
+                initComplete: function (setting, json) {
+                   $('#list_length').insertBefore($('#list_info'));
+                   $('#list_wrapper div:first').remove();
+                },
                 lengthMenu: [[10,15,20], ["10","15","20"]],
                 processing: true,
                 searching: false,
@@ -141,10 +166,6 @@
                      	first: "首页",
                      	last: "尾页"
                     }
-                },
-                initComplete: function (setting, json) {
-                   $('#list_length').insertBefore($('#list_info'));
-                   $('#list_wrapper div:first').remove();
                 }
     		});
     	}
@@ -158,6 +179,8 @@
 		function showView(id){
 			$("#view_modal input[type='text'],#view_modal textarea").val("");
 			$("#view_modal").modal('show');
+			
+			
 		}
 		
 		//显示添加
@@ -186,29 +209,16 @@
     			}
     		});
 		}
+		
+		//显示修改
+		function showUpdate(id){
+			alert('修改成功')
+		}
+		
+		//删除
+		function deleteItem(id){
+			alert('删除成功')
+		}
 	</script>
-	
-	<style type="text/css">
-		.table>thead>tr>th, 
-		.table>tbody>tr>td
-		{
-			line-height: 39px;
-			padding-top: 2px;
-			padding-right: 2px;
-			padding-bottom: 2px;
-			padding-left: 2px;
-			text-align: center;
-		}
-	
-		.dataTables_length
-		{
-			float:left;
-			padding-top:4px;
-		}
-		#list_length .form-control
-		{
-			width:65px;
-		}
-	</style>
 </body>
 </html>

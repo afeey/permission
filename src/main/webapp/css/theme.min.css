@@ -1,0 +1,20 @@
+/*
+ * 系统主题样式
+ */
+.table>thead>tr>th, .table>tbody>tr>td {
+	line-height: 39px;
+	padding-top: 2px;
+	padding-right: 2px;
+	padding-bottom: 2px;
+	padding-left: 2px;
+	text-align: center;
+}
+
+.dataTables_length {
+	float: left;
+	padding-top: 4px;
+}
+
+#list_length .form-control {
+	width: 65px;
+}
