@@ -37,15 +37,36 @@
         	</thead>
       	</table>
 	</div>
-	<div class="modal fade" id="add_modal" tabindex="-1" role="dialog" aria-labelledby="add_title">
+	
+	<!-- 详细模态 -->
+	<div class="modal fade" id="view_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
-					<h4 class="modal-title" id="add_title">添加</h4>
+					<h4 class="modal-title">详细</h4>
+				</div>
+				<div class="modal-body">
+					
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- 添加模态 -->
+	<div class="modal fade" id="add_modal" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title">添加</h4>
 				</div>
 				<div class="modal-body">
 					<form id="frm_add">
@@ -53,7 +74,7 @@
 					</form>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-primary" onclick="save()">保存</button>
+					<button type="button" class="btn btn-primary" id="btn_add_save">保存</button>
 					<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
 				</div>
 			</div>
@@ -75,6 +96,7 @@
 			//绑定事件
   			$('#btn_query').click(query);
   			$('#btn_add').click(showAdd);
+  			$('#btn_add_save').click(save);
   			
   			//初始化
   			init();
@@ -82,12 +104,11 @@
 		
 		//初始化
 		function init(){
-		
 			$('#list').DataTable({
         		serverSide: true,
         		ajax: {
         			type: "post",
-        			url: "${rc.contextPath}/json/role/list",
+        			url: "${rc.contextPath}/api/role/list",
         			data: function(d){
         				d.name = $.trim($("#name").val());
         				d.code = $.trim($("#code").val());
@@ -98,7 +119,7 @@
                     { data: "code" },
                     { data: "comment" },
                     { data: function () {
-                            	return '<a class="btn btn-primary"><i class="icon-edit"></i>详细</a>';
+                            	return '<a class="btn btn-primary" onclick="showView()">详细</a>';
                         	}
                     }
                 ],
@@ -133,6 +154,12 @@
 			$("#list").DataTable().draw();
 		}
 		
+		//显示详细
+		function showView(id){
+			$("#view_modal input[type='text'],#view_modal textarea").val("");
+			$("#view_modal").modal('show');
+		}
+		
 		//显示添加
 		function showAdd(){
 			$("#add_modal input[type='text'],#add_modal textarea").val("");
@@ -141,8 +168,23 @@
 		
 		//保存
 		function save(){
-			alert('保存成功');
-			$('#add_modal').modal('hide');
+			var vo={};
+			vo.name="role";
+			vo.code="code";
+			
+			$.ajax({
+    			type: "post",
+    			url: "${rc.contextPath}/api/role/save",
+    			data: vo,
+    			dataType: "json",
+     			success: function(result){
+     				if(!result.success){
+     					alert(result.message);
+     					return;
+     				}
+     				$('#add_modal').modal('hide');
+    			}
+    		});
 		}
 	</script>
 	

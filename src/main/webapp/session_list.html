@@ -61,13 +61,13 @@
     	$('#msg').html("数据加载中...");
     	$.ajax({
     		type: "post",
-    		url: "json/session_list",
+    		url: "api/session/list",
     		data: "",
     		dataType: "json",
     		xhrFields: { withCredentials: true },
        		crossDomain: true,
      		success: function(result){
-				if(result.code=='200'){
+				if(result.success){
 					$('#msg').html("");
 				}else{
 					alert(result.message);

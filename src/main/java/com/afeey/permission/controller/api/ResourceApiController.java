@@ -1,4 +1,4 @@
-package com.afeey.permission.controller.json;
+package com.afeey.permission.controller.api;
 
 import java.util.List;
 
@@ -18,8 +18,8 @@ import com.afeey.permission.core.service.IResourceService;
  */
 @Controller
 @ResponseBody
-@RequestMapping("/json/resource")
-public class ResourceJsonController {
+@RequestMapping("/api/resource")
+public class ResourceApiController {
 
 	@Autowired
 	private IResourceService resourceService;
@@ -33,8 +33,8 @@ public class ResourceJsonController {
 		
 		List<Resource> list = resourceService.list(null, null, null, null);
 
-		JsonResult result=new JsonResult();
-		result.setCode(success ? "200" : "401");
+		Result result=new Result();
+		result.setSuccess(success);
 		result.setMessage(msg);
 		result.setData(list);
 		

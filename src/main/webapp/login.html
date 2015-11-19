@@ -52,14 +52,14 @@
     	$('#login').val("登录中...");
     	$.ajax({
     		type: "post",
-    		url: "json/login",
+    		url: "api/login",
     		data: user,
     		dataType: "json",
     		xhrFields: { withCredentials: true },
        		crossDomain: true,
      		success: function(data){
      			$('#login').val("登录");
-     			if(data.code=='200'){
+     			if(data.success){
      				window.location.href='session.html';
      			}else{
      				$('#msg').html(data.message);

@@ -1,4 +1,4 @@
-package com.afeey.permission.controller.json;
+package com.afeey.permission.controller.api;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,14 +20,22 @@ import com.afeey.permission.core.service.IRoleService;
  */
 @Controller
 @ResponseBody
-@RequestMapping("/json/role")
-public class RoleJsonController {
+@RequestMapping("/api/role")
+public class RoleApiController {
 	
-	private static final Logger log = LoggerFactory.getLogger(RoleJsonController.class);
+	private static final Logger log = LoggerFactory.getLogger(RoleApiController.class);
 
 	@Autowired
 	private IRoleService roleService;
 
+	/**
+	 * 角色列表
+	 * @param name 名称
+	 * @param code 代码
+	 * @param start 起始索引
+	 * @param length 记录数
+	 * @return json
+	 */
 	@RequestMapping(value = "/list")
 	public Object list(
 			@RequestParam("name") String name, 
@@ -35,12 +43,12 @@ public class RoleJsonController {
 			@RequestParam("start") Integer start, 
 			@RequestParam("length") Integer length){
 		
-		log.info("name:{},code:{},start:{},length:{}",name,code,start,length);
+		log.debug("name:{},code:{},start:{},length:{}", name, code, start, length);
 
 		int number = start / length + 1;
 		IPage<Role> page = roleService.list(name, code, null, number, length);
 
-		ListResult result = new ListResult();
+		Result result = new Result();
 		result.setDraw(0);
 		result.setRecordsTotal(page.getTotal());
 		result.setRecordsFiltered(page.getTotal());

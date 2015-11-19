@@ -1,4 +1,4 @@
-package com.afeey.permission.controller.json;
+package com.afeey.permission.controller.api;
 
 /**
  * 列表结果
@@ -6,7 +6,22 @@ package com.afeey.permission.controller.json;
  * @author wyf
  *
  */
-public class ListResult {
+public class Result {
+	
+	/**
+	 * 是否成功
+	 */
+	private boolean success;
+	
+	/**
+	 * 返回提示
+	 */
+	private String message;
+	
+	/**
+	 * 跳转链接
+	 */
+	private String redirect;
 	
 	/**
 	 * 绘制
@@ -29,11 +44,37 @@ public class ListResult {
 	private Object data;
 
 	
-	public ListResult() {
+	public Result() {
+		this.success = true;
+		this.message = "";
 		this.draw = 0;
 		this.recordsTotal = 0;
 		this.recordsFiltered = 0;
 		this.data = null;
+	}
+	
+	public boolean isSuccess() {
+		return success;
+	}
+
+	public void setSuccess(boolean success) {
+		this.success = success;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+	
+	public String getRedirect() {
+		return redirect;
+	}
+
+	public void setRedirect(String redirect) {
+		this.redirect = redirect;
 	}
 
 	public int getDraw() {

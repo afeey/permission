@@ -1,4 +1,4 @@
-package com.afeey.permission.controller.json;
+package com.afeey.permission.controller.api;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -28,10 +28,10 @@ import com.afeey.permission.core.service.IUserService;
  */
 @Controller
 @ResponseBody
-@RequestMapping("/json")
-public class LoginJsonController {
+@RequestMapping("/api")
+public class LoginApiController {
 
-	private static final Logger log = LoggerFactory.getLogger(LoginJsonController.class);
+	private static final Logger log = LoggerFactory.getLogger(LoginApiController.class);
 
 	@Autowired
 	private IUserService userService;
@@ -83,8 +83,8 @@ public class LoginJsonController {
 			log.debug("login failure : {}",e.getMessage());
 		}
 		
-		JsonResult result=new JsonResult();
-		result.setCode(success ? "200" : "401");
+		Result result=new Result();
+		result.setSuccess(success);
 		result.setMessage(msg);
 		
 		return result;
@@ -116,8 +116,8 @@ public class LoginJsonController {
 			log.debug("logout exception : {}", e.getMessage());
 		}
 
-		JsonResult result=new JsonResult();
-		result.setCode(success ? "200" : "401");
+		Result result=new Result();
+		result.setSuccess(success);
 		result.setMessage(msg);
 		
 		return result;
@@ -132,8 +132,8 @@ public class LoginJsonController {
 		boolean success = false;
 		String msg = "未登录";
 		
-		JsonResult result=new JsonResult();
-		result.setCode(success ? "200" : "401");
+		Result result=new Result();
+		result.setSuccess(success);
 		result.setMessage(msg);
 		
 		return result;
@@ -148,8 +148,8 @@ public class LoginJsonController {
 		boolean success = false;
 		String msg = "没有权限";
 		
-		JsonResult result=new JsonResult();
-		result.setCode(success ? "200" : "402");
+		Result result=new Result();
+		result.setSuccess(success);
 		result.setMessage(msg);
 		
 		return result;
