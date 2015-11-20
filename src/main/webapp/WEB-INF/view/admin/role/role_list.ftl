@@ -20,14 +20,14 @@
 			<form class="form-inline" id="frm_action">
 				<div class="form-group">
     				<label for="name">名称</label>
-    				<input type="text" class="form-control" id="name" name="name" placeholder="名称"/>
+    				<input type="text" class="form-control" id="f_name" name="name"/>
   				</div>
   				<div class="form-group">
     				<label for="code">代码</label>
-    				<input type="text" class="form-control" id="code" name="code" placeholder="代码"/>
+    				<input type="text" class="form-control" id="f_code" name="code"/>
   				</div>
-  				<input type="button" id="btn_query" value="查询" class="btn btn-success"/>
-				<input type="button" id="btn_add" value="添加" class="btn btn-success"/>
+  				<button type="button" id="btn_query" class="btn btn-success">查询</button>
+				<button type="button" id="btn_add" class="btn btn-success">添加</button>
 			</form>
 		</div>
       	<table id="list" class="table table-bordered table-condensed table-hover" width="100%">
@@ -65,6 +65,14 @@
 						<div class="col-md-3 text-right">备注 :</div>
 						<div class="col-md-9" id="v_comment""></div>
 					</div>
+					<div class="row">
+						<div class="col-md-3 text-right">创建时间 :</div>
+						<div class="col-md-9" id="v_createAt""></div>
+					</div>
+					<div class="row">
+						<div class="col-md-3 text-right">更新时间 :</div>
+						<div class="col-md-9" id="v_updateAt""></div>
+					</div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -85,11 +93,58 @@
 				</div>
 				<div class="modal-body">
 					<form id="frm_add">
-					
+  						<div class="form-group">
+    						<label for="s_name">名称</label>
+    						<input type="text" class="form-control" id="s_name" name="s_name"/>
+  						</div>
+  						<div class="form-group">
+    						<label for="s_code">代码</label>
+    						<input type="text" class="form-control" id="s_code" name="s_code"/>
+  						</div>
+  						<div class="form-group">
+    						<label for="s_comment">备注</label>
+    						<textarea class="form-control" id="s_comment" name="s_comment"></textarea>
+  						</div>
 					</form>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-primary" id="btn_add_save">保存</button>
+					<button type="button" class="btn btn-success" id="btn_add_save">保存</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- 修改模态 -->
+	<div class="modal fade" id="update_modal" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title">修改</h4>
+				</div>
+				<div class="modal-body">
+					<div class="loading">数据加载中...</div>
+					<form id="frm_update">
+						<input type="hidden" id="u_id" name="u_id" value=""/>
+  						<div class="form-group">
+    						<label for="u_name">名称</label>
+    						<input type="text" class="form-control" id="u_name" name="u_name"/>
+  						</div>
+  						<div class="form-group">
+    						<label for="u_code">代码</label>
+    						<input type="text" class="form-control" id="u_code" name="u_code"/>
+  						</div>
+  						<div class="form-group">
+    						<label for="u_comment">备注</label>
+    						<textarea class="form-control" id="u_comment" name="u_comment"></textarea>
+  						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-success" id="btn_update_save">保存</button>
 					<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
 				</div>
 			</div>
@@ -103,28 +158,33 @@
 	<!-- datatables -->
 	<script type="text/javascript" src="${rc.contextPath}/js/datatables/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" src="${rc.contextPath}/js/datatables/js/dataTables.bootstrap.min.js"></script>
+	<!-- system -->
+	<script type="text/javascript" src="${rc.contextPath}/js/system/common.js"></script>
 	
 	<script type="text/javascript">
 		$(document).ready(function(){
 			//绑定事件
   			$('#btn_query').click(query);
   			$('#btn_add').click(showAdd);
-  			$('#btn_add_save').click(save);
+  			$('#btn_add_save').click(add);
+  			$('#btn_update_save').click(update);
   			
   			//初始化
   			initTable();
 		});
 		
+		var table; //表格
 		//初始化表格
 		function initTable(){
+			table =
 			$('#list').DataTable({
         		serverSide: true,
         		ajax: {
         			type: "post",
         			url: "${rc.contextPath}/api/role/list",
         			data: function(d){
-        				d.name = $.trim($("#name").val());
-        				d.code = $.trim($("#code").val());
+        				d.name = $.trim($("#f_name").val());
+        				d.code = $.trim($("#f_code").val());
         			}
         		},
         		columns: [
@@ -135,9 +195,9 @@
                       data: "id",
                       createdCell: function (td,val,data,row,col) {
                         var html='<div class="btn-group" role="group" >';
-						html += '	<button type="button" class="btn btn-primary" onclick="showView('+ val +')">详细</button>';
-						html += '	<button type="button" class="btn btn-primary" onclick="showUpdate('+ val +')">修改</button>';
-						html += '	<button type="button" class="btn btn-primary" onclick="deleteItem('+ val +')">删除</button>';
+						html += '	<a type="button" class="btn btn-primary" onclick="showView(\''+ val +'\')">详细</a>';
+						html += '	<a type="button" class="btn btn-primary" onclick="showUpdate(\''+ val +'\')">修改</a>';
+						html += '	<a type="button" class="btn btn-primary" onclick="deleteItem(\''+ val +'\')">删除</a>';
 						html += '</div>';
                       
                       	$(td).html(html);
@@ -172,15 +232,33 @@
     	
     	//查询
 		function query(){
-			$("#list").DataTable().draw();
+			table.ajax.reload();
 		}
 		
 		//显示详细
 		function showView(id){
-			$("#view_modal input[type='text'],#view_modal textarea").val("");
 			$("#view_modal").modal('show');
-			
-			
+			$(".modal-body .row div[id^='v_']").html("");
+			var vo={};
+			vo.id=id;
+			$.ajax({
+    			type: "get",
+    			url: "${rc.contextPath}/api/role/query",
+    			data: vo,
+    			dataType: "json",
+     			success: function(result){
+     				if(!result.success){
+						alert(result.message);
+						return;
+					}
+					var _obj = result.data;
+					$("#v_name").html(_obj.name);
+					$("#v_code").html(_obj.code);
+					$("#v_comment").html(_obj.comment);
+					$("#v_createAt").html(new Date(_obj.createAt).Format('yyyy-MM-dd hh:mm:ss'));
+					$("#v_updateAt").html(new Date(_obj.updateAt).Format('yyyy-MM-dd hh:mm:ss'));
+    			}
+    		});
 		}
 		
 		//显示添加
@@ -189,15 +267,15 @@
 			$("#add_modal").modal('show');
 		}
 		
-		//保存
-		function save(){
+		//添加
+		function add(){
 			var vo={};
-			vo.name="role";
-			vo.code="code";
-			
+			vo.name=$.trim($("#s_name").val());
+			vo.code=$.trim($("#s_code").val());
+			vo.comment=$.trim($("#s_comment").val());
 			$.ajax({
     			type: "post",
-    			url: "${rc.contextPath}/api/role/save",
+    			url: "${rc.contextPath}/api/role/add",
     			data: vo,
     			dataType: "json",
      			success: function(result){
@@ -205,19 +283,97 @@
      					alert(result.message);
      					return;
      				}
+     				alert('保存成功');
      				$('#add_modal').modal('hide');
+     				table.ajax.reload(null,false);
     			}
     		});
 		}
 		
 		//显示修改
 		function showUpdate(id){
-			alert('修改成功')
+		
+			//显示
+			$("#update_modal .loading").show();
+			$("#update_modal form").hide();
+			$("#update_modal").modal('show');
+			$("#update_modal input[type='text'],#update_modal textarea").val("");
+			
+			//加载数据
+			var vo={};
+			vo.id=id;
+			$.ajax({
+    			type: "get",
+    			url: "${rc.contextPath}/api/role/query",
+    			data: vo,
+    			dataType: "json",
+     			success: function(result){
+     				if(!result.success){
+						alert(result.message);
+						return;
+					}
+					var _obj = result.data;
+					$("#u_id").val(_obj.id);
+					$("#u_name").val(_obj.name);
+					$("#u_code").val(_obj.code);
+					$("#u_comment").val(_obj.comment);
+					
+					$("#update_modal .loading").hide();
+					$("#update_modal form").show();
+    			}
+    		});
+		}
+		
+		//修改
+		function update(){
+			var vo={};
+			vo.id=$.trim($("#u_id").val());
+			vo.name=$.trim($("#u_name").val());
+			vo.code=$.trim($("#u_code").val());
+			vo.comment=$.trim($("#u_comment").val());
+			$.ajax({
+    			type: "post",
+    			url: "${rc.contextPath}/api/role/update",
+    			data: vo,
+    			dataType: "json",
+     			success: function(result){
+     				if(!result.success){
+     					alert(result.message);
+     					return;
+     				}
+     				alert('修改成功');
+     				$('#update_modal').modal('hide');
+     				table.ajax.reload(null,false);
+    			}
+    		});
 		}
 		
 		//删除
 		function deleteItem(id){
-			alert('删除成功')
+			if (!confirm("确认要删除？")) {
+		    	return;
+		    }
+		
+			var vo={};
+			vo.id=id;
+			$.ajax({
+    			type: "get",
+    			url: "${rc.contextPath}/api/role/delete",
+    			data: vo,
+    			dataType: "json",
+     			success: function(result){
+     				if(!result.success){
+						alert(result.message);
+						return;
+					}
+					alert("删除成功");
+					if(table.ajax.json().data.length==1){
+						table.page('previous').ajax.reload(null,false);
+					}else{
+						table.ajax.reload(null,false);
+					}
+    			}
+    		});
 		}
 	</script>
 </body>
