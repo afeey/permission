@@ -18,3 +18,12 @@
 #list_length .form-control {
 	width: 65px;
 }
+
+form .required{
+	color:red;
+	padding:0 3px;
+}
+
+label.error{
+	color:red;
+}

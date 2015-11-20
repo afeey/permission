@@ -92,18 +92,24 @@
 					<h4 class="modal-title">添加</h4>
 				</div>
 				<div class="modal-body">
-					<form id="frm_add">
+					<form id="frm_add" class="form-horizontal">
   						<div class="form-group">
-    						<label for="s_name">名称</label>
-    						<input type="text" class="form-control" id="s_name" name="s_name"/>
+    						<label for="s_name" class="col-sm-2 control-label"><span class="required">*</span>名称</label>
+    						<div class="col-sm-9">
+    							<input type="text" class="form-control" id="s_name" name="s_name"/>
+    						</div>
   						</div>
   						<div class="form-group">
-    						<label for="s_code">代码</label>
-    						<input type="text" class="form-control" id="s_code" name="s_code"/>
+    						<label for="s_code" class="col-sm-2 control-label"><span class="required">*</span>代码</label>
+    						<div class="col-sm-9">
+    							<input type="text" class="form-control" id="s_code" name="s_code"/>
+    						</div>
   						</div>
   						<div class="form-group">
-    						<label for="s_comment">备注</label>
-    						<textarea class="form-control" id="s_comment" name="s_comment"></textarea>
+    						<label for="s_comment" class="col-sm-2 control-label">备注</label>
+    						<div class="col-sm-9">
+    							<textarea class="form-control" id="s_comment" name="s_comment"></textarea>
+  							</div>
   						</div>
 					</form>
 				</div>
@@ -127,19 +133,25 @@
 				</div>
 				<div class="modal-body">
 					<div class="loading">数据加载中...</div>
-					<form id="frm_update">
+					<form id="frm_update" class="form-horizontal">
 						<input type="hidden" id="u_id" name="u_id" value=""/>
   						<div class="form-group">
-    						<label for="u_name">名称</label>
-    						<input type="text" class="form-control" id="u_name" name="u_name"/>
+    						<label for="u_name" class="col-sm-2 control-label"><span class="required">*</span>名称</label>
+    						<div class="col-sm-9">
+    							<input type="text" class="form-control" id="u_name" name="u_name"/>
+    						</div>
   						</div>
   						<div class="form-group">
-    						<label for="u_code">代码</label>
-    						<input type="text" class="form-control" id="u_code" name="u_code"/>
+    						<label for="u_code" class="col-sm-2 control-label"><span class="required">*</span>代码</label>
+    						<div class="col-sm-9">
+    							<input type="text" class="form-control" id="u_code" name="u_code"/>
+							</div>  						
   						</div>
   						<div class="form-group">
-    						<label for="u_comment">备注</label>
-    						<textarea class="form-control" id="u_comment" name="u_comment"></textarea>
+    						<label for="u_comment" class="col-sm-2 control-label">备注</label>
+    						<div class="col-sm-9">
+    							<textarea class="form-control" id="u_comment" name="u_comment"></textarea>
+    						</div>
   						</div>
 					</form>
 				</div>
@@ -158,6 +170,9 @@
 	<!-- datatables -->
 	<script type="text/javascript" src="${rc.contextPath}/js/datatables/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" src="${rc.contextPath}/js/datatables/js/dataTables.bootstrap.min.js"></script>
+	<!-- jquery_validation -->
+	<script type="text/javascript" src="${rc.contextPath}/js/jquery_validation/jquery.validate.min.js"></script>
+	<script type="text/javascript" src="${rc.contextPath}/js/jquery_validation/localization/messages_zh.min.js"></script>
 	<!-- system -->
 	<script type="text/javascript" src="${rc.contextPath}/js/system/common.js"></script>
 	
@@ -171,6 +186,7 @@
   			
   			//初始化
   			initTable();
+  			initValidate();
 		});
 		
 		var table; //表格
@@ -230,6 +246,75 @@
     		});
     	}
     	
+    	//初始化验证
+    	function initValidate() {
+			$("#frm_add").validate({
+				ignore:'',
+		        rules: {
+		        	s_name: {
+		        		required: true,
+		                maxlength: 20
+		            },
+		            s_code:{
+		                required: true,
+		                maxlength: 20
+		            },
+		            s_comment:{
+		                maxlength: 100
+		            }
+		        },
+		        messages: {
+		        	s_name: {
+		        		required: "名称不能为空",
+		                maxlength: "不可超过{0}个字符"
+		            },
+		            s_code:{
+		                required: "代码不能为空",
+		                maxlength: "不可超过{0}个字符"
+		            },
+		            s_comment:{
+		                maxlength: "备注不可超过{0}个字符"
+		            }
+		        },
+		        errorPlacement: function (error, element) {
+		        	error.insertAfter(element);
+		        }
+			});	
+			
+			$("#frm_update").validate({
+				ignore:'',
+		        rules: {
+		        	u_name: {
+		        		required: true,
+		                maxlength: 20
+		            },
+		            u_code:{
+		                required: true,
+		                maxlength: 20
+		            },
+		            u_comment:{
+		                maxlength: 100
+		            }
+		        },
+		        messages: {
+		        	u_name: {
+		        		required: "名称不能为空",
+		                maxlength: "不可超过{0}个字符"
+		            },
+		            u_code:{
+		                required: "代码不能为空",
+		                maxlength: "不可超过{0}个字符"
+		            },
+		            u_comment:{
+		                maxlength: "备注不可超过{0}个字符"
+		            }
+		        },
+		        errorPlacement: function (error, element) {
+		        	error.insertAfter(element);
+		        }
+			});	
+		}
+    	
     	//查询
 		function query(){
 			table.ajax.reload();
@@ -263,12 +348,18 @@
 		
 		//显示添加
 		function showAdd(){
+			$("#add_modal label.error").remove();
 			$("#add_modal input[type='text'],#add_modal textarea").val("");
 			$("#add_modal").modal('show');
 		}
 		
 		//添加
 		function add(){
+			if(!$("#frm_add").valid()){
+				$("#add_modal .alert").show();
+				return;
+			}
+		
 			var vo={};
 			vo.name=$.trim($("#s_name").val());
 			vo.code=$.trim($("#s_code").val());
@@ -297,6 +388,7 @@
 			$("#update_modal .loading").show();
 			$("#update_modal form").hide();
 			$("#update_modal").modal('show');
+			$("#update_modal label.error").remove();
 			$("#update_modal input[type='text'],#update_modal textarea").val("");
 			
 			//加载数据
@@ -326,6 +418,11 @@
 		
 		//修改
 		function update(){
+			if(!$("#frm_update").valid()){
+				$("#frm_update .alert.").show();
+				return;
+			}
+		
 			var vo={};
 			vo.id=$.trim($("#u_id").val());
 			vo.name=$.trim($("#u_name").val());
