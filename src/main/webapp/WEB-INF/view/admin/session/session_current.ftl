@@ -23,24 +23,24 @@
 	<div role="main" class="container-fluid">
 		<div id="msg"></div>
       	<div class="row">
-			 <div class="col-sm-6 text-right">会话ID :</div>
-			 <div class="col-sm-6" id="id"></div>
+			 <div class="col-sm-4 text-right">会话ID :</div>
+			 <div class="col-sm-8" id="id"></div>
 		</div>
 		<div class="row">
-			 <div class="col-sm-6 text-right">IP :</div>
-			 <div class="col-sm-6" id="host"></div>
+			 <div class="col-sm-4 text-right">IP :</div>
+			 <div class="col-sm-8" id="host"></div>
 		</div>
 		<div class="row">
-			 <div class="col-sm-6 text-right">超时设定(ms) :</div>
-			 <div class="col-sm-6" id="timeout"></div>
+			 <div class="col-sm-4 text-right">超时设定(ms) :</div>
+			 <div class="col-sm-8" id="timeout"></div>
 		</div>
 		<div class="row">
-			 <div class="col-sm-6 text-right">登录时间 :</div>
-			 <div class="col-sm-6" id="startTimestamp"></div>
+			 <div class="col-sm-4 text-right">登录时间 :</div>
+			 <div class="col-sm-8" id="startTimestamp"></div>
 		</div>
 		<div class="row">
-			 <div class="col-sm-6 text-right">最后访问 :</div>
-			 <div class="col-sm-6" id="lastAccessTime"></div>
+			 <div class="col-sm-4 text-right">最后访问 :</div>
+			 <div class="col-sm-8" id="lastAccessTime"></div>
 		</div>
 	</div>
 	

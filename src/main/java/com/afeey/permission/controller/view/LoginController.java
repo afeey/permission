@@ -1,5 +1,7 @@
 package com.afeey.permission.controller.view;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
@@ -45,7 +47,7 @@ public class LoginController {
 			log.debug("{} logout success", principal);
 		}
 		
-		return "index";
+		return "redirect:/";
 	}
 	
 	/**
@@ -53,7 +55,9 @@ public class LoginController {
 	 * @return view
 	 */
 	@RequestMapping("/unauthorized")
-	public String unauthorized() {
+	public String unauthorized(HttpServletRequest request) {
+		String uri = request.getRequestURI();
+		log.info(uri);
 		return "unauthorized";
 	}
 }

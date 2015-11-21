@@ -27,3 +27,7 @@ form .required{
 label.error{
 	color:red;
 }
+
+.navbar-default{
+	margin-bottom:0px;
+}
