@@ -79,14 +79,7 @@
 	<bean id="filterChainDefinitionMap" class="com.afeey.permission.shiro.config.FilterChainDefinitionSection">
 		<property name="filterChainDefinitions">
 			<value>
-				/json/login = ac
-				/json/logout = ac
-				/json/unauthorized = ac,authc
-				/json/session = ac,authc
-				/json/session_list = ac,authc
-				/json/resource/** = ac
-				/json/role/** = ac
-				/json/user/** = ac,authc,perms["user:*"]
+				/api/resource/** = authc
 			</value>
 		</property>
 	</bean>

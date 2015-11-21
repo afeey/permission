@@ -15,16 +15,16 @@
   		<li><a href="#">权限管理</a></li>
   		<li class="active">角色列表</li>
 	</ol>
-	<div role="main" class="container">
+	<div role="main" class="container-fluid">
 		<div role="action">
 			<form class="form-inline" id="frm_action">
 				<div class="form-group">
     				<label for="name">名称</label>
-    				<input type="text" class="form-control" id="f_name" name="name"/>
+    				<input type="text" class="form-control" id="f_name" name="f_name"/>
   				</div>
   				<div class="form-group">
     				<label for="code">代码</label>
-    				<input type="text" class="form-control" id="f_code" name="code"/>
+    				<input type="text" class="form-control" id="f_code" name="f_code"/>
   				</div>
   				<button type="button" id="btn_query" class="btn btn-success">查询</button>
 				<button type="button" id="btn_add" class="btn btn-success">添加</button>
@@ -54,24 +54,24 @@
 				</div>
 				<div class="modal-body">
 					<div class="row">
-						<div class="col-md-3 text-right">名称 :</div>
-						<div class="col-md-9" id="v_name"></div>
+						<div class="col-sm-3 text-right">名称 :</div>
+						<div class="col-sm-9" id="v_name"></div>
 					</div>
 					<div class="row">
-						<div class="col-md-3 text-right">代码 :</div>
-						<div class="col-md-9" id="v_code"></div>
+						<div class="col-sm-3 text-right">代码 :</div>
+						<div class="col-sm-9" id="v_code"></div>
 					</div>
 					<div class="row">
-						<div class="col-md-3 text-right">备注 :</div>
-						<div class="col-md-9" id="v_comment""></div>
+						<div class="col-sm-3 text-right">备注 :</div>
+						<div class="col-sm-9" id="v_comment""></div>
 					</div>
 					<div class="row">
-						<div class="col-md-3 text-right">创建时间 :</div>
-						<div class="col-md-9" id="v_createAt""></div>
+						<div class="col-sm-3 text-right">创建时间 :</div>
+						<div class="col-sm-9" id="v_createAt""></div>
 					</div>
 					<div class="row">
-						<div class="col-md-3 text-right">更新时间 :</div>
-						<div class="col-md-9" id="v_updateAt""></div>
+						<div class="col-sm-3 text-right">更新时间 :</div>
+						<div class="col-sm-9" id="v_updateAt""></div>
 					</div>
 				</div>
 				<div class="modal-footer">

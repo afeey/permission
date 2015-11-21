@@ -12,15 +12,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("/admin")
-public class RoleController {
+public class SessionController {
 
 	/**
-	 * 角色列表
+	 * 会话列表
 	 * @param model model
 	 * @return view
 	 */
-	@RequestMapping({"/role","/role/list"})
+	@RequestMapping({"/session","/session/list"})
 	public String list(Model model) {
-		return "admin/role/role_list";
+		return "admin/session/session_list";
+	}
+	
+	/**
+	 * 当前会话
+	 * @param model model
+	 * @return view
+	 */
+	@RequestMapping("/session/current")
+	public String current(Model model) {
+		return "admin/session/session_current";
 	}
 }

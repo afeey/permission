@@ -165,7 +165,6 @@ public class RoleApiController {
 		IPage<Role> page = roleService.list(name, code, null, number, length);
 
 		Result result = new Result();
-		result.setDraw(0);
 		result.setRecordsTotal(page.getTotal());
 		result.setRecordsFiltered(page.getTotal());
 		result.setData(page.getList());
