@@ -11,6 +11,7 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.mgt.eis.SessionDAO;
 import org.apache.shiro.subject.SimplePrincipalCollection;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -77,12 +78,24 @@ public class SessionApiController {
 	@RequestMapping(value="/current")
 	public Object current() {
 
-		Session session = SecurityUtils.getSubject().getSession(false);
+		Subject subject = SecurityUtils.getSubject();
+		Session session = subject.getSession(false);
+		
+		HashMap<String, String> map=new HashMap<String, String>();
+		if(session!=null){
+			map.put("id",session.getId().toString());
+			map.put("userid",session.getAttribute("userid")==null?"":session.getAttribute("userid").toString());
+			map.put("username",subject.getPrincipal().toString());
+			map.put("host",session.getHost());
+			map.put("timeout",Long.toString(session.getTimeout()));
+			map.put("startTimestamp",new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(session.getStartTimestamp()));
+			map.put("lastAccessTime",new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(session.getLastAccessTime()));
+		}
 		
 		Result result=new Result();
 		result.setSuccess(true);
 		result.setMessage("查询成功");
-		result.setData(session);
+		result.setData(map);
 		
 		return result;
 	}

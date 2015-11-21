@@ -30,3 +30,10 @@ Date.prototype.Format = function(fmt) { //author: meizz
 					: (("00" + o[k]).substr(("" + o[k]).length)));
 	return fmt;
 }
+
+window.sessionExpired = function(contentPath,result){
+	if(result.code==401){
+		top.location.href=contentPath+"/login";
+	}
+}
+

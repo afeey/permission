@@ -41,7 +41,7 @@
 	</div>
 	
 	<!-- jquery -->
-	<script src="${rc.contextPath}/js/jquery.min.js"></script>
+	<script type="text/javascript" src="${rc.contextPath}/js/jquery.min.js"></script>
 	<!-- bootstrap -->
 	<script type="text/javascript" src="${rc.contextPath}/js/bootstrap/js/bootstrap.min.js"></script>
 	<!-- datatables -->
@@ -65,12 +65,21 @@
 			table =
 			$('#list').DataTable({
         		serverSide: true,
-        		ajax: {
-        			type: "post",
-        			url: "${rc.contextPath}/api/session/list",
-        			data: function(d){
-        				d.userName = $.trim($("#f_username").val());
-        			}
+        		ajax: function (data, callback, settings) {
+        			data.userName = $.trim($("#f_username").val());
+        			$.ajax({
+        				type: "post",
+        				url: "${rc.contextPath}/api/session/list",
+        				data: data,
+        				dataType: "json",
+        				success:function(result){
+        					if(!result.success){
+        						alert(result.message);
+        						sessionExpired('${rc.contextPath}',result);
+        					}
+        					callback(result);
+        				}
+        			});
         		},
         		columns: [
                     { data: "id" },
@@ -110,32 +119,6 @@
     	//查询
 		function query(){
 			table.ajax.reload();
-		}
-		
-		//显示详细
-		function showView(id){
-			$("#view_modal").modal('show');
-			$(".modal-body .row div[id^='v_']").html("");
-			var vo={};
-			vo.id=id;
-			$.ajax({
-    			type: "get",
-    			url: "${rc.contextPath}/api/session/query",
-    			data: vo,
-    			dataType: "json",
-     			success: function(result){
-     				if(!result.success){
-						alert(result.message);
-						return;
-					}
-					var _obj = result.data;
-					$("#v_name").html(_obj.name);
-					$("#v_code").html(_obj.code);
-					$("#v_comment").html(_obj.comment);
-					$("#v_createAt").html(new Date(_obj.createAt).Format('yyyy-MM-dd hh:mm:ss'));
-					$("#v_updateAt").html(new Date(_obj.updateAt).Format('yyyy-MM-dd hh:mm:ss'));
-    			}
-    		});
 		}
 	</script>
 </body>

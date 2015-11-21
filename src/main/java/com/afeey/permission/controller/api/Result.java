@@ -14,6 +14,11 @@ public class Result {
 	private boolean success;
 	
 	/**
+	 * 结果代码
+	 */
+	private int code;
+	
+	/**
 	 * 返回提示
 	 */
 	private String message;
@@ -46,6 +51,7 @@ public class Result {
 	
 	public Result() {
 		this.success = true;
+		this.code = 200;
 		this.message = "";
 		this.draw = 0;
 		this.recordsTotal = 0;
@@ -59,6 +65,14 @@ public class Result {
 
 	public void setSuccess(boolean success) {
 		this.success = success;
+	}
+
+	public int getCode() {
+		return code;
+	}
+
+	public void setCode(int code) {
+		this.code = code;
 	}
 
 	public String getMessage() {

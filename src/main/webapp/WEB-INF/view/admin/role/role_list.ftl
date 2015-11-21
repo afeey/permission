@@ -164,7 +164,7 @@
 	</div>
 	
 	<!-- jquery -->
-	<script src="${rc.contextPath}/js/jquery.min.js"></script>
+	<script type="text/javascript" src="${rc.contextPath}/js/jquery.min.js"></script>
 	<!-- bootstrap -->
 	<script type="text/javascript" src="${rc.contextPath}/js/bootstrap/js/bootstrap.min.js"></script>
 	<!-- datatables -->

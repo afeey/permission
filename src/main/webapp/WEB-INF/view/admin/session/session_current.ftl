@@ -27,6 +27,14 @@
 			 <div class="col-sm-8" id="id"></div>
 		</div>
 		<div class="row">
+			 <div class="col-sm-4 text-right">用户ID :</div>
+			 <div class="col-sm-8" id="userid"></div>
+		</div>
+		<div class="row">
+			 <div class="col-sm-4 text-right">用户名 :</div>
+			 <div class="col-sm-8" id="username"></div>
+		</div>
+		<div class="row">
 			 <div class="col-sm-4 text-right">IP :</div>
 			 <div class="col-sm-8" id="host"></div>
 		</div>
@@ -45,11 +53,9 @@
 	</div>
 	
 	<!-- jquery -->
-	<script src="${rc.contextPath}/js/jquery.min.js"></script>
+	<script type="text/javascript" src="${rc.contextPath}/js/jquery.min.js"></script>
 	<!-- bootstrap -->
 	<script type="text/javascript" src="${rc.contextPath}/js/bootstrap/js/bootstrap.min.js"></script>
-	<!-- system -->
-	<script type="text/javascript" src="${rc.contextPath}/js/system/common.js"></script>
 
 	<script type="text/javascript">
 	$(document).ready(function(){
@@ -72,10 +78,12 @@
 				if(result.data!=null){
 					var session=result.data;
 					$("#id").html(session.id);
+					$("#userid").html(session.userid);
+					$("#username").html(session.username);
      				$("#host").html(session.host);
      				$("#timeout").html(session.timeout);
-     				$("#startTimestamp").html(new Date(session.startTimestamp).Format('yyyy-MM-dd hh:mm:ss'));
-    				$("#lastAccessTime").html(new Date(session.lastAccessTime).Format('yyyy-MM-dd hh:mm:ss'));
+     				$("#startTimestamp").html(session.startTimestamp);
+    				$("#lastAccessTime").html(session.lastAccessTime);
 				}
     		}
     	});

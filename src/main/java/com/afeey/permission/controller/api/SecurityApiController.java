@@ -21,7 +21,7 @@ import com.afeey.permission.core.po.User;
 import com.afeey.permission.core.service.IUserService;
 
 /**
- * 登录控制器
+ * 安全控制器
  * 
  * @author wyf
  *
@@ -29,9 +29,9 @@ import com.afeey.permission.core.service.IUserService;
 @Controller
 @ResponseBody
 @RequestMapping("/api")
-public class LoginApiController {
+public class SecurityApiController {
 
-	private static final Logger log = LoggerFactory.getLogger(LoginApiController.class);
+	private static final Logger log = LoggerFactory.getLogger(SecurityApiController.class);
 
 	@Autowired
 	private IUserService userService;
@@ -124,16 +124,17 @@ public class LoginApiController {
 	}
 	
 	/**
-	 * 未登录
+	 * 未认证（未登录）
 	 * @return json
 	 */
-	@RequestMapping(value = "/not_login")
-	public Object notLogin(){
+	@RequestMapping(value = "/unauthenticated")
+	public Object unauthenticated(){
 		boolean success = false;
-		String msg = "未登录";
+		String msg = "未登录或会话已过期";
 		
 		Result result=new Result();
 		result.setSuccess(success);
+		result.setCode(401);
 		result.setMessage(msg);
 		
 		return result;

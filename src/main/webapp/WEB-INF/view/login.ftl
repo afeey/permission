@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
   	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>角色列表</title>
+	<title>用户登录</title>
 	
 	<link rel="stylesheet" href="${rc.contextPath}/js/bootstrap/css/bootstrap.min.css" />
 
@@ -38,16 +38,16 @@
 	</div>
 	
 	<!-- jquery -->
-	<script src="${rc.contextPath}/js/jquery.min.js"></script>
+	<script type="text/javascript" src="${rc.contextPath}/js/jquery.min.js"></script>
 	<!-- bootstrap -->
 	<script type="text/javascript" src="${rc.contextPath}/js/bootstrap/js/bootstrap.min.js"></script>
 	
 	<script type="text/javascript">
 	$(document).ready(function(){
   		$('#login').click(login);
-  		$("input[type='password']").keypress(function(e){
-  			if (event.keyCode == 13) {
-    			login()();
+  		$("input").keypress(function(e){
+  			if (e.keyCode == 13) {
+    			login();
   			}
 		})
 	});
@@ -66,14 +66,14 @@
     		return;
     	}
     	
-    	$('#login').val("登录中...");
+    	$('#login').html("登录中...");
     	$.ajax({
     		type: "post",
     		url: "${rc.contextPath}/api/login",
     		data: vo,
     		dataType: "json",
      		success: function(result){
-     			$('#login').val("登录");
+     			$('#login').html("登录");
      			if(result.success){
      				location.href='${rc.contextPath}/';
      			}else{

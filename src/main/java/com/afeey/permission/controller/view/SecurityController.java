@@ -10,15 +10,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- * 登录控制器
+ * 安全控制器
  * 
  * @author wyf
  *
  */
 @Controller
-public class LoginController {
+public class SecurityController {
 	
-	private static final Logger log = LoggerFactory.getLogger(LoginController.class);
+	private static final Logger log = LoggerFactory.getLogger(SecurityController.class);
 	
 	/**
 	 * 登录
@@ -51,13 +51,22 @@ public class LoginController {
 	}
 	
 	/**
+	 * 未认证
+	 * @param request HttpServletRequest
+	 * @return view
+	 */
+	@RequestMapping("/unauthenticated")
+	public String unauthenticated(HttpServletRequest request) {
+		return "not_login";
+	}
+	
+	/**
 	 * 未授权
+	 * @param request HttpServletRequest
 	 * @return view
 	 */
 	@RequestMapping("/unauthorized")
 	public String unauthorized(HttpServletRequest request) {
-		String uri = request.getRequestURI();
-		log.info(uri);
 		return "unauthorized";
 	}
 }

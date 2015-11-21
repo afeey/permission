@@ -28,7 +28,6 @@ public class IndexController {
 		
 		Subject subject=SecurityUtils.getSubject();
 		model.addAttribute("username",subject.getPrincipal());
-		model.addAttribute("sessionid", session.getId());
 		return "index";
 	}
 	

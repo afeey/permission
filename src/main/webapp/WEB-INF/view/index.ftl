@@ -66,11 +66,11 @@
 		</div>
 	</nav>
 	<div role="main">
-		<iframe width="100%" height="100%"></iframe>
+		<iframe width="100%" height="100%" frameborder="0"></iframe>
 	</div>
 
 	<!-- jquery -->
-	<script src="${rc.contextPath}/js/jquery.min.js"></script>
+	<script type="text/javascript" src="${rc.contextPath}/js/jquery.min.js"></script>
 	<!-- bootstrap -->
 	<script type="text/javascript" src="${rc.contextPath}/js/bootstrap/js/bootstrap.min.js"></script>
 	<script type="text/javascript">
@@ -80,7 +80,7 @@
 		
 		//设置布局尺寸
 		function setLayoutSize(){
-			var _height=($(window).height()-$("nav").outerHeight())-3;
+			var _height=($(window).height()-$("nav").outerHeight())-5;
 			$("div[role='main']").css("height",_height+"px");
 		}
 		
