@@ -26,10 +26,10 @@
 		<form method="post">
 			<div id="msg" class="error"></div>
 			<div class="form-group">
-				<label for="username">用户名</label><input type="text" class="form-control" name="username" id="username" placeholder="用户名" />
+				<label for="username">用户名</label><input type="text" class="form-control" name="username" id="username" placeholder="用户名" value="wyf"/>
 			</div>
 			<div class="form-group">
-				<label for="password">密码</label><input type="password" class="form-control" name="password" id="password" placeholder="密码" />
+				<label for="password">密码</label><input type="password" class="form-control" name="password" id="password" placeholder="密码" value="123456"/>
 			</div>
 			<div class="form-group">
 				<button type="button" id="login" class="btn btn-success">登录</button>

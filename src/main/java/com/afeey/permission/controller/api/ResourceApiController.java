@@ -11,7 +11,7 @@ import com.afeey.permission.core.po.Resource;
 import com.afeey.permission.core.service.IResourceService;
 
 /**
- * 资源控制器
+ * 资源API控制器
  * 
  * @author wyf
  *

@@ -21,7 +21,7 @@ import com.afeey.permission.core.po.User;
 import com.afeey.permission.core.service.IUserService;
 
 /**
- * 安全控制器
+ * 安全API控制器
  * 
  * @author wyf
  *

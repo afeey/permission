@@ -19,7 +19,7 @@
 		<div role="action">
 			<form class="form-inline" id="frm_action">
 				<div class="form-group">
-    				<label for="f_userName">用户名</label>
+    				<label for="f_username">用户名</label>
     				<input type="text" class="form-control" id="f_username" name="f_username"/>
   				</div>
   				<button type="button" id="btn_query" class="btn btn-success">查询</button>

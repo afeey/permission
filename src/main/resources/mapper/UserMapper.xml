@@ -90,13 +90,13 @@
 			AND id IN (select user_id from sys_user_role where role_id=#{params.roleId})
 		</if>  
 		<if test="params.userName != null">
-			AND user_name=#{params.userName}
+			AND user_name like CONCAT('%',#{params.userName},'%')
 		</if>
 		<if test="params.cellphone != null">
-			AND cellphone=#{params.cellphone}
+			AND cellphone like CONCAT('%',#{params.cellphone},'%')
 		</if>
 		<if test="params.mail != null">
-			AND mail=#{params.mail}
+			AND mail like CONCAT('%',#{params.mail},'%')
 		</if>
 		<if test="params.status != null">
 			AND status=#{params.status}

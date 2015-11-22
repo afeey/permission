@@ -17,7 +17,7 @@ import com.afeey.permission.core.service.IPage;
 import com.afeey.permission.core.service.IRoleService;
 
 /**
- * 角色控制器
+ * 角色API控制器
  * 
  * @author wyf
  *

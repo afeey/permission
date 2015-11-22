@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
   	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>角色列表</title>
+	<title>用户列表</title>
 	
 	<link rel="stylesheet" href="${rc.contextPath}/js/bootstrap/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="${rc.contextPath}/js/datatables/css/dataTables.bootstrap.min.css" />
@@ -13,18 +13,23 @@
 <body>
 	<ol class="breadcrumb">
   		<li><a href="#">权限管理</a></li>
-  		<li class="active">角色列表</li>
+  		<li class="active">用户列表</li>
 	</ol>
 	<div role="main" class="container-fluid">
 		<div role="action">
 			<form class="form-inline" id="frm_action">
 				<div class="form-group">
-    				<label for="f_name">名称</label>
-    				<input type="text" class="form-control" id="f_name" name="f_name"/>
+    				<label for="f_userName">用户名</label>
+    				<input type="text" class="form-control" id="f_userName" name="f_userName"/>
   				</div>
   				<div class="form-group">
-    				<label for="f_code">代码</label>
-    				<input type="text" class="form-control" id="f_code" name="f_code"/>
+    				<label for="f_roleId">角色</label>
+    				<select class="form-control" id="f_roleId" name="f_roleId">
+    					<option value="">全部</option>
+    				<#list roles as role>
+    					<option value="${role.id}">${role.name}</option>
+    				</#list>
+    				</select>
   				</div>
   				<button type="button" id="btn_query" class="btn btn-success">查询</button>
 				<button type="button" id="btn_add" class="btn btn-success">添加</button>
@@ -33,9 +38,15 @@
       	<table id="list" class="table table-bordered table-condensed table-hover" width="100%">
         	<thead>
           		<tr>
-            		<th>名称</th>
-            		<th>代码</th>
-            		<th>备注</th>
+            		<th>用户名</th>
+            		<th>昵称</th>
+            		<th>角色</th>
+            		<th>姓名</th>
+            		<th>手机号</th>
+            		<th>邮箱</th>
+            		<th>性别</th>
+            		<th>注册时间</th>
+            		<th>最近登录</th>
             		<th style="width:180px;">操作</th>
           		</tr>
         	</thead>
@@ -196,11 +207,11 @@
 			$('#list').DataTable({
         		serverSide: true,
         		ajax: function (data, callback, settings) {
-        			data.name = $.trim($("#f_name").val());
-        			data.code = $.trim($("#f_code").val());
+        			data.userName = $.trim($("#f_userName").val());
+        			data.roleId = $.trim($("#f_roleId").val());
         			$.ajax({
         				type: "post",
-        				url: "${rc.contextPath}/api/role/list",
+        				url: "${rc.contextPath}/api/user/list",
         				data: data,
         				dataType: "json",
         				success:function(result){
@@ -213,9 +224,15 @@
         			});
         		},
         		columns: [
-                    { data: "name" },
-                    { data: "code" },
-                    { data: "comment" },
+                    { data: "userName" },
+                    { data: "alias" },
+                    { data: "roles" },
+                    { data: "fullName" },
+                    { data: "cellphone" },
+                    { data: "mail" },
+                    { data: "sex" },
+                    { data: "regTime" },
+                    { data: "loginTime" },
                     { 
                       data: "id",
                       createdCell: function (td,val,data,row,col) {
@@ -337,7 +354,7 @@
 			vo.id=id;
 			$.ajax({
     			type: "get",
-    			url: "${rc.contextPath}/api/role/query",
+    			url: "${rc.contextPath}/api/user/query",
     			data: vo,
     			dataType: "json",
      			success: function(result){
@@ -375,7 +392,7 @@
 			vo.comment=$.trim($("#s_comment").val());
 			$.ajax({
     			type: "post",
-    			url: "${rc.contextPath}/api/role/add",
+    			url: "${rc.contextPath}/api/user/add",
     			data: vo,
     			dataType: "json",
      			success: function(result){
@@ -405,7 +422,7 @@
 			vo.id=id;
 			$.ajax({
     			type: "get",
-    			url: "${rc.contextPath}/api/role/query",
+    			url: "${rc.contextPath}/api/user/query",
     			data: vo,
     			dataType: "json",
      			success: function(result){
@@ -439,7 +456,7 @@
 			vo.comment=$.trim($("#u_comment").val());
 			$.ajax({
     			type: "post",
-    			url: "${rc.contextPath}/api/role/update",
+    			url: "${rc.contextPath}/api/user/update",
     			data: vo,
     			dataType: "json",
      			success: function(result){
@@ -464,7 +481,7 @@
 			vo.id=id;
 			$.ajax({
     			type: "get",
-    			url: "${rc.contextPath}/api/role/delete",
+    			url: "${rc.contextPath}/api/user/delete",
     			data: vo,
     			dataType: "json",
      			success: function(result){

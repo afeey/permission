@@ -1,7 +1,7 @@
 package com.afeey.permission.controller.api;
 
 /**
- * 列表结果
+ * 结果
  * 
  * @author wyf
  *
