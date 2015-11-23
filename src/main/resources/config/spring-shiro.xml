@@ -72,6 +72,7 @@
             <map>
                <entry key="ac" value-ref="accessControlAllowOriginFilter"/>
                <entry key="authc" value-ref="authenticationFilter"/>
+               <entry key="api_authc" value-ref="apiAuthenticationFilter"/>
             </map>
        </property>
 	</bean>
@@ -89,11 +90,11 @@
 			    /admin/session/list = authc
 			    /admin/session/current = authc
 			    
-				/api/resource/list = authc
-			    /api/role/list = authc
-			    /api/user/list = authc
-			    /api/session/list = authc
-			    /api/session/current = authc
+				/api/resource/list = api_authc
+			    /api/role/list = api_authc
+			    /api/user/list = api_authc
+			    /api/session/list = api_authc
+			    /api/session/current = api_authc
 			</value>
 		</property>
 	</bean>
@@ -112,8 +113,11 @@
 	<!-- 认证过滤器  -->
 	<bean id="authenticationFilter" class="com.afeey.permission.shiro.filter.authc.AuthenticationFilter">
 		<property name="unauthenticatedUrl" value="/unauthenticated" />
-		<property name="apiUrl" value="/api" />
-		<property name="apiUnauthenticatedUrl" value="/api/unauthenticated" />
+	</bean>
+	
+	<!-- api认证过滤器  -->
+	<bean id="apiAuthenticationFilter" class="com.afeey.permission.shiro.filter.authc.AuthenticationFilter">
+		<property name="unauthenticatedUrl" value="/api/unauthenticated" />
 	</bean>
 	
 	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
