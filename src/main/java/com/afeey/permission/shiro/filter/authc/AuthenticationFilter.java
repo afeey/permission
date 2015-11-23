@@ -19,16 +19,20 @@ public class AuthenticationFilter extends AccessControlFilter{
 
 	private static final Logger log = LoggerFactory.getLogger(AuthenticationFilter.class);
 	
-	private String unauthenticatedUrl = "/unauthenticated"; 		// 未认证Url
-	private String apiUrl = "/api"; 								// api起始路径
-	private String apiUnauthenticatedUrl = "/api/unauthenticated"; 	// api跳转的未认证Url
+	private String unauthenticatedUrl = "/unauthenticated"; 		// 未认证转发Url
 
+	/**
+	 * 判断访问是否被允许
+	 */
 	@Override
 	protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) throws Exception {
 		Subject subject = getSubject(request, response);
 		return subject.isAuthenticated();
 	}
-
+	
+	/**
+	 * 访问被拒绝调用方法
+	 */
 	@Override
 	protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws Exception {
 		HttpServletRequest httpRequest = null;
@@ -38,13 +42,8 @@ public class AuthenticationFilter extends AccessControlFilter{
 			log.error("request is not HttpServletRequest");
 		}
 		
-		if (apiUrl.trim().length() > 0
-				&& httpRequest.getRequestURI().startsWith(request.getServletContext().getContextPath()
-								.concat(apiUrl).concat("/"))) {
-			httpRequest.getRequestDispatcher(apiUnauthenticatedUrl).forward(request, response);
-		} else {
-			httpRequest.getRequestDispatcher(unauthenticatedUrl).forward(request, response);
-		}
+		httpRequest.getRequestDispatcher(unauthenticatedUrl).forward(request, response);
+		
 		return false;
 	}
 	
@@ -56,19 +55,4 @@ public class AuthenticationFilter extends AccessControlFilter{
 		this.unauthenticatedUrl = unauthenticatedUrl;
 	}
 	
-	public String getApiUrl() {
-		return apiUrl;
-	}
-
-	public void setApiUrl(String apiUrl) {
-		this.apiUrl = apiUrl;
-	}
-
-	public String getApiUnauthenticatedUrl() {
-		return apiUnauthenticatedUrl;
-	}
-
-	public void setApiUnauthenticatedUrl(String apiUnauthenticatedUrl) {
-		this.apiUnauthenticatedUrl = apiUnauthenticatedUrl;
-	}
 }
