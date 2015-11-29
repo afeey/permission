@@ -5,7 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- * 角色控制器
+ * 会话控制器
  * 
  * @author afeey
  *
